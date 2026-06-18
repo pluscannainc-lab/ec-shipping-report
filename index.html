@@ -1,0 +1,1627 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="日本国内のEC送料設計を、消費者・事業者ニーズ、個数・重量・サイズ、開発難易度から整理した調査レポート">
+  <title>ECにおける送料設計の調査・整理</title>
+  <style>
+    :root {
+      --ink: #17212b;
+      --muted: #5e6b76;
+      --paper: #ffffff;
+      --canvas: #f3f7f6;
+      --line: #dce7e4;
+      --brand: #0d7a70;
+      --brand-dark: #075b54;
+      --brand-soft: #e6f5f2;
+      --accent: #f59e0b;
+      --accent-soft: #fff5da;
+      --shadow: 0 18px 55px rgba(22, 68, 61, .10);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 28px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(13, 122, 112, .13), transparent 28rem),
+        var(--canvas);
+      font-family: "Yu Gothic UI", "Hiragino Sans", Meiryo, system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.85;
+    }
+    a { color: var(--brand-dark); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: var(--brand); }
+    .external { display: inline-block; margin-left: .25em; font-size: .75em; text-decoration: none; }
+    .progress { position: fixed; inset: 0 0 auto; height: 4px; z-index: 100; background: transparent; }
+    .progress span { display: block; width: 0; height: 100%; background: linear-gradient(90deg, var(--brand), var(--accent)); }
+    .hero {
+      color: white;
+      background:
+        linear-gradient(125deg, rgba(7, 91, 84, .97), rgba(13, 122, 112, .89)),
+        repeating-linear-gradient(45deg, transparent 0 22px, rgba(255,255,255,.04) 22px 24px);
+      padding: 70px clamp(22px, 5vw, 72px) 62px;
+    }
+    .hero-inner { max-width: 1200px; margin: auto; }
+    .eyebrow { margin: 0 0 10px; font-size: .82rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; opacity: .82; }
+    .hero h1 { max-width: 880px; margin: 0; font-size: clamp(2rem, 5.2vw, 4.3rem); line-height: 1.12; letter-spacing: -.035em; }
+    .hero-lead { max-width: 790px; margin: 20px 0 0; font-size: clamp(1rem, 2vw, 1.24rem); opacity: .93; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+    .pill { padding: 7px 13px; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; background: rgba(255,255,255,.10); font-size: .84rem; }
+    .key-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 34px; }
+    .key-card { padding: 20px; border: 1px solid rgba(255,255,255,.20); border-radius: 15px; background: rgba(255,255,255,.10); backdrop-filter: blur(6px); }
+    .key-card b { display: block; margin-bottom: 3px; color: #fff3c7; font-size: 1.1rem; }
+    .layout { display: grid; grid-template-columns: 260px minmax(0, 900px); gap: 42px; max-width: 1240px; margin: 0 auto; padding: 44px 28px 100px; }
+    .sidebar { align-self: start; position: sticky; top: 24px; max-height: calc(100vh - 48px); overflow: auto; padding: 20px 14px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.88); box-shadow: 0 8px 28px rgba(24, 70, 63, .06); }
+    .toc-title { margin: 0 10px 10px; color: var(--muted); font-size: .74rem; font-weight: 900; letter-spacing: .15em; }
+    .toc-link { display: block; padding: 7px 10px; border-radius: 8px; color: #42535f; font-size: .86rem; line-height: 1.35; text-decoration: none; }
+    .toc-link:hover, .toc-link.active { color: var(--brand-dark); background: var(--brand-soft); }
+    .toc-link.level-3 { padding-left: 22px; color: #71808b; font-size: .79rem; }
+    main { min-width: 0; padding: 2px 0; }
+    main > .report-title, main > p:first-of-type { display: none; }
+    h2 { margin: 70px 0 20px; padding-top: 4px; color: var(--brand-dark); font-size: clamp(1.55rem, 3vw, 2.15rem); line-height: 1.3; letter-spacing: -.025em; }
+    h2::before { content: ""; display: block; width: 44px; height: 5px; margin-bottom: 13px; border-radius: 99px; background: linear-gradient(90deg, var(--brand), var(--accent)); }
+    h3 { margin: 42px 0 15px; font-size: 1.3rem; line-height: 1.4; }
+    h4 { margin: 30px 0 12px; font-size: 1.05rem; }
+    h2:first-of-type { margin-top: 8px; }
+    .anchor { margin-left: .45em; opacity: 0; font-size: .7em; text-decoration: none; }
+    h2:hover .anchor, h3:hover .anchor, h4:hover .anchor { opacity: .45; }
+    p { margin: 0 0 18px; }
+    strong { color: #0a6159; }
+    ul, ol { margin: 12px 0 22px; padding-left: 1.45rem; }
+    li { margin: 6px 0; padding-left: .18rem; }
+    li::marker { color: var(--brand); font-weight: 800; }
+    hr { margin: 60px 0 0; border: 0; border-top: 1px solid var(--line); }
+    blockquote { position: relative; margin: 24px 0; padding: 22px 24px 22px 58px; border: 1px solid #f4d896; border-radius: 15px; background: var(--accent-soft); box-shadow: 0 8px 24px rgba(115, 75, 3, .05); }
+    blockquote::before { content: "!"; position: absolute; left: 20px; top: 19px; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; color: white; background: var(--accent); font-weight: 900; }
+    .table-wrap { overflow-x: auto; margin: 20px 0 30px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); box-shadow: 0 7px 25px rgba(26, 69, 63, .055); }
+    table { width: 100%; min-width: 650px; border-collapse: collapse; font-size: .9rem; line-height: 1.55; }
+    th { padding: 13px 14px; color: #fff; background: var(--brand-dark); text-align: left; white-space: nowrap; }
+    td { padding: 12px 14px; border-top: 1px solid var(--line); vertical-align: top; }
+    tbody tr:nth-child(even) { background: #f8fbfa; }
+    tbody tr:hover { background: #eef8f5; }
+    td:first-child { font-weight: 700; color: #29423f; }
+    .priority-stars { color: var(--accent); font-size: 1.05rem; font-weight: 900; letter-spacing: .08em; white-space: nowrap; text-shadow: 0 1px 0 rgba(128, 76, 0, .12); }
+    .status-badge { display: inline-grid; min-width: 2.1em; min-height: 2.1em; padding: .12em .45em; place-items: center; border-radius: 999px; font-size: .84rem; font-weight: 900; white-space: nowrap; }
+    .status-yes { color: #075b54; background: #dff4ee; }
+    .status-partial { color: #8a5400; background: #fff0c7; }
+    .status-no { color: #9b2c2c; background: #ffe3e3; }
+    .status-check { color: #475569; background: #e9eef3; }
+    .diagram-wrap { position: relative; overflow-x: auto; margin: 26px 0 34px; padding: 44px 24px 24px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); box-shadow: var(--shadow); }
+    .diagram-label { position: absolute; top: 12px; left: 15px; padding: 3px 9px; border-radius: 999px; color: var(--brand-dark); background: var(--brand-soft); font-size: .72rem; font-weight: 900; letter-spacing: .08em; }
+    .flow-overview { display: grid; grid-template-columns: minmax(185px, 1fr) 36px minmax(150px, .8fr) 36px minmax(200px, 1.1fr); align-items: center; min-width: 730px; gap: 8px; }
+    .flow-column { display: grid; gap: 9px; }
+    .flow-caption { margin: 0 0 2px; color: var(--muted); font-size: .72rem; font-weight: 900; letter-spacing: .08em; text-align: center; }
+    .flow-card { padding: 11px 13px; border: 1px solid #b9d9d4; border-radius: 11px; background: #f7fbfa; text-align: center; line-height: 1.35; }
+    .flow-card b { display: block; color: #144e49; font-size: .9rem; }
+    .flow-card span { display: block; margin-top: 4px; color: var(--muted); font-size: .72rem; }
+    .flow-card.result { border-color: #f1d18b; background: #fffaf0; }
+    .flow-engine { display: grid; place-items: center; min-height: 145px; border: 3px solid var(--brand); color: white; background: linear-gradient(145deg, var(--brand), var(--brand-dark)); box-shadow: 0 13px 25px rgba(13, 122, 112, .22); }
+    .flow-engine b { color: white; font-size: 1.08rem; }
+    .flow-engine span { color: #d6f1ed; }
+    .flow-connector { color: var(--brand); font-size: 1.8rem; font-weight: 900; text-align: center; }
+    .difficulty-flow { display: flex; align-items: stretch; min-width: 790px; }
+    .difficulty-stage { display: flex; flex: 1; flex-direction: column; justify-content: center; min-height: 138px; padding: 14px 11px; border: 1px solid var(--line); border-radius: 12px; background: #f7fbfa; text-align: center; line-height: 1.35; }
+    .difficulty-stage b { display: block; margin: 7px 0; color: #174e49; font-size: .88rem; }
+    .difficulty-stage small { color: var(--muted); font-size: .7rem; }
+    .stage-star { align-self: center; padding: 3px 8px; border-radius: 999px; color: var(--brand-dark); background: var(--brand-soft); font-weight: 900; }
+    .stage-4, .stage-5 { border-color: #f1cc78; background: #fff9ea; }
+    .stage-4 .stage-star, .stage-5 .stage-star { color: #874f00; background: #ffeab5; }
+    .difficulty-arrow { display: grid; place-items: center; width: 28px; color: var(--brand); font-size: 1.3rem; font-weight: 900; }
+    .difficulty-notes { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 18px; }
+    .difficulty-notes span { padding: 5px 10px; border: 1px dashed #d4a443; border-radius: 999px; color: #715018; background: #fff8e7; font-size: .74rem; }
+    .process-flow { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 28px; max-width: 760px; margin: 0 auto; }
+    .process-flow::before { content: ""; position: absolute; left: 50%; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(var(--brand), var(--accent)); opacity: .25; }
+    .process-step { position: relative; display: flex; align-items: center; gap: 12px; min-height: 86px; padding: 14px 15px; border: 1px solid var(--line); border-radius: 13px; background: #f9fcfb; box-shadow: 0 5px 15px rgba(25, 70, 64, .045); }
+    .process-step:nth-child(4n+3), .process-step:nth-child(4n+4) { background: #fffaf0; }
+    .step-number { display: grid; flex: 0 0 34px; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: white; background: var(--brand); font-weight: 900; }
+    .process-step b { display: block; color: #194c47; font-size: .88rem; line-height: 1.4; }
+    .process-step small { display: block; margin-top: 4px; color: var(--muted); font-size: .72rem; line-height: 1.4; }
+    .code-block { overflow-x: auto; margin: 20px 0 28px; padding: 18px 20px; border-left: 5px solid var(--brand); border-radius: 10px; color: #e6fffb; background: #163b38; font-family: Consolas, monospace; font-size: .87rem; line-height: 1.65; }
+    code { padding: .1em .35em; border-radius: 5px; background: #edf3f2; font-family: Consolas, monospace; font-size: .9em; }
+    .code-block code { padding: 0; background: transparent; }
+    .footer { padding: 34px 24px; color: #d9efec; background: #153d39; text-align: center; font-size: .86rem; }
+    .mobile-toc { display: none; }
+    @media (max-width: 900px) {
+      .hero { padding-top: 54px; }
+      .key-grid { grid-template-columns: 1fr; }
+      .layout { display: block; padding: 24px 17px 76px; }
+      .sidebar { display: none; }
+      .mobile-toc { display: block; margin: 0 0 26px; border: 1px solid var(--line); border-radius: 12px; background: white; }
+      .mobile-toc summary { padding: 13px 16px; color: var(--brand-dark); font-weight: 800; cursor: pointer; }
+      .mobile-toc .toc-inner { max-height: 55vh; overflow: auto; padding: 0 10px 12px; }
+      h2 { margin-top: 54px; }
+      table { font-size: .84rem; }
+      .process-flow { grid-template-columns: 1fr; }
+      .process-flow::before { left: 17px; }
+    }
+    @media print {
+      @page { margin: 14mm; }
+      body { background: white; font-size: 10pt; }
+      .progress, .sidebar, .mobile-toc { display: none !important; }
+      .hero { padding: 18mm 12mm; color: #17312f; background: #e7f4f1; }
+      .hero h1 { font-size: 28pt; }
+      .key-card { color: #17312f; border-color: #b8d9d3; background: white; }
+      .key-card b { color: var(--brand-dark); }
+      .pill { border-color: #99c7c0; }
+      .layout { display: block; max-width: none; padding: 0; }
+      h2 { break-after: avoid; margin-top: 13mm; }
+      h3, h4 { break-after: avoid; }
+      .table-wrap, .diagram-wrap, blockquote { break-inside: avoid; box-shadow: none; }
+      .table-wrap { overflow: visible; }
+      table { min-width: 0; font-size: 7.5pt; }
+      th, td { padding: 5px 6px; }
+      a { color: inherit; text-decoration: none; }
+      .external { display: none; }
+      .footer { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">EC SHIPPING DESIGN REPORT</p>
+      <h1>ECにおける<br>送料設計の調査・整理</h1>
+      <p class="hero-lead">送料を「料金表」ではなく、購入体験・利益・出荷現場をつなぐ仕組みとして整理。個数・重量・サイズ・地域・温度帯などの条件と、開発難易度まで見える化しました。</p>
+      <div class="hero-meta">
+        <span class="pill">更新：2026年6月18日</span>
+        <span class="pill">対象：日本国内EC</span>
+        <span class="pill">図解・比較表つき</span>
+      </div>
+      <div class="key-grid">
+        <div class="key-card"><b>顧客体験</b>送料が早く分かり、安さ・速さ・受取方法を選べる</div>
+        <div class="key-card"><b>利益管理</b>請求送料と配送実費を分け、送料赤字を見える化する</div>
+        <div class="key-card"><b>出荷運用</b>温度帯・倉庫・箱・配送会社・分割を迷わず決める</div>
+      </div>
+    </div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar" aria-label="目次">
+      <p class="toc-title">CONTENTS</p>
+      <a class="toc-link level-2" href="#0-先に結論">0. 先に結論</a>
+<a class="toc-link level-2" href="#1-送料を構成する全体像">1. 送料を構成する全体像</a>
+<a class="toc-link level-2" href="#2-消費者のニーズ">2. 消費者のニーズ</a>
+<a class="toc-link level-3" href="#消費者にとって分かりやすい表示順">消費者にとって分かりやすい表示順</a>
+<a class="toc-link level-2" href="#3-事業者のニーズ">3. 事業者のニーズ</a>
+<a class="toc-link level-3" href="#法令表示上の最低ライン">法令・表示上の最低ライン</a>
+<a class="toc-link level-2" href="#4-個数重量サイズの深掘り">4. 「個数・重量・サイズ」の深掘り</a>
+<a class="toc-link level-3" href="#4-1-個数で計算する場合">4-1. 個数で計算する場合</a>
+<a class="toc-link level-3" href="#4-2-重量で計算する場合">4-2. 重量で計算する場合</a>
+<a class="toc-link level-3" href="#4-3-サイズで計算する場合">4-3. サイズで計算する場合</a>
+<a class="toc-link level-2" href="#5-見落としやすい送料ニーズ">5. 見落としやすい送料ニーズ</a>
+<a class="toc-link level-3" href="#温度帯は追加料金だけではない">温度帯は「追加料金」だけではない</a>
+<a class="toc-link level-2" href="#6-送料方式と開発難易度">6. 送料方式と開発難易度</a>
+<a class="toc-link level-3" href="#難易度の基準">難易度の基準</a>
+<a class="toc-link level-3" href="#方式別の比較">方式別の比較</a>
+<a class="toc-link level-3" href="#条件が組み合わさると難しくなる">条件が組み合わさると難しくなる</a>
+<a class="toc-link level-2" href="#7-推奨する送料計算の流れ">7. 推奨する送料計算の流れ</a>
+<a class="toc-link level-3" href="#重要な計算順序">重要な計算順序</a>
+<a class="toc-link level-2" href="#8-開発に必要なデータ">8. 開発に必要なデータ</a>
+<a class="toc-link level-3" href="#商品バリエーションごと">商品・バリエーションごと</a>
+<a class="toc-link level-3" href="#料金ルールごと">料金ルールごと</a>
+<a class="toc-link level-2" href="#9-システム設計で外せない機能">9. システム設計で外せない機能</a>
+<a class="toc-link level-3" href="#最低限必要">最低限必要</a>
+<a class="toc-link level-3" href="#成長後に必要">成長後に必要</a>
+<a class="toc-link level-3" href="#api連携時の安全策">API連携時の安全策</a>
+<a class="toc-link level-2" href="#10-消費者と事業者の希望がぶつかる場面">10. 消費者と事業者の希望がぶつかる場面</a>
+<a class="toc-link level-2" href="#11-おすすめの実装順">11. おすすめの実装順</a>
+<a class="toc-link level-3" href="#第1段階まず安心して販売できる形">第1段階：まず安心して販売できる形</a>
+<a class="toc-link level-3" href="#第2段階精度と選択肢を増やす">第2段階：精度と選択肢を増やす</a>
+<a class="toc-link level-3" href="#第3段階物流全体を最適化する">第3段階：物流全体を最適化する</a>
+<a class="toc-link level-2" href="#12-実装前に決めること--やさしい質問と回答例">12. 実装前に決めること ― やさしい質問と回答例</a>
+<a class="toc-link level-3" href="#まずはこの7つだけ決めればスタートできる">まずは、この7つだけ決めればスタートできる</a>
+<a class="toc-link level-3" href="#12-1-お金について決める">12-1. お金について決める</a>
+<a class="toc-link level-3" href="#12-2-商品と箱について決める">12-2. 商品と箱について決める</a>
+<a class="toc-link level-3" href="#12-3-商品が揃わない時の送り方を決める">12-3. 商品が揃わない時の送り方を決める</a>
+<a class="toc-link level-3" href="#12-4-お客さまに何を見せるか決める">12-4. お客さまに何を見せるか決める</a>
+<a class="toc-link level-3" href="#12-5-うまく計算できない時の対応を決める">12-5. うまく計算できない時の対応を決める</a>
+<a class="toc-link level-3" href="#12-6-誰が設定を管理するか決める">12-6. 誰が設定を管理するか決める</a>
+<a class="toc-link level-3" href="#そのまま使える回答例">そのまま使える回答例</a>
+<a class="toc-link level-2" href="#13-送料設計の評価指標">13. 送料設計の評価指標</a>
+<a class="toc-link level-2" href="#14-今回の提案">14. 今回の提案</a>
+<a class="toc-link level-2" href="#15-baseでできる送料設定">15. BASEでできる送料設定</a>
+<a class="toc-link level-3" href="#結論baseは重量別送料に対応している">結論：BASEは重量別送料に対応している</a>
+<a class="toc-link level-3" href="#比較表の評価ルール">比較表の評価ルール</a>
+<a class="toc-link level-3" href="#base欄の修正版">BASE欄の修正版</a>
+<a class="toc-link level-3" href="#重量別送料の仕組み">重量別送料の仕組み</a>
+<a class="toc-link level-3" href="#サイズ別の言葉に注意">「サイズ別」の言葉に注意</a>
+<a class="toc-link level-3" href="#個数別送料でできること">個数別送料でできること</a>
+<a class="toc-link level-3" href="#温度帯の扱い">温度帯の扱い</a>
+<a class="toc-link level-3" href="#複数の配送方法">複数の配送方法</a>
+<a class="toc-link level-3" href="#配送日時間帯指定">配送日・時間帯指定</a>
+<a class="toc-link level-3" href="#送料詳細設定-appとかんたん発送は別計算">送料詳細設定 Appと「かんたん発送」は別計算</a>
+<a class="toc-link level-3" href="#送料無料の注意点">送料無料の注意点</a>
+<a class="toc-link level-3" href="#baseに向いている送料設計">BASEに向いている送料設計</a>
+<a class="toc-link level-2" href="#参考資料">参考資料</a>
+    </aside>
+    <main>
+      <details class="mobile-toc"><summary>目次を開く</summary><div class="toc-inner"><a class="toc-link level-2" href="#0-先に結論">0. 先に結論</a>
+<a class="toc-link level-2" href="#1-送料を構成する全体像">1. 送料を構成する全体像</a>
+<a class="toc-link level-2" href="#2-消費者のニーズ">2. 消費者のニーズ</a>
+<a class="toc-link level-3" href="#消費者にとって分かりやすい表示順">消費者にとって分かりやすい表示順</a>
+<a class="toc-link level-2" href="#3-事業者のニーズ">3. 事業者のニーズ</a>
+<a class="toc-link level-3" href="#法令表示上の最低ライン">法令・表示上の最低ライン</a>
+<a class="toc-link level-2" href="#4-個数重量サイズの深掘り">4. 「個数・重量・サイズ」の深掘り</a>
+<a class="toc-link level-3" href="#4-1-個数で計算する場合">4-1. 個数で計算する場合</a>
+<a class="toc-link level-3" href="#4-2-重量で計算する場合">4-2. 重量で計算する場合</a>
+<a class="toc-link level-3" href="#4-3-サイズで計算する場合">4-3. サイズで計算する場合</a>
+<a class="toc-link level-2" href="#5-見落としやすい送料ニーズ">5. 見落としやすい送料ニーズ</a>
+<a class="toc-link level-3" href="#温度帯は追加料金だけではない">温度帯は「追加料金」だけではない</a>
+<a class="toc-link level-2" href="#6-送料方式と開発難易度">6. 送料方式と開発難易度</a>
+<a class="toc-link level-3" href="#難易度の基準">難易度の基準</a>
+<a class="toc-link level-3" href="#方式別の比較">方式別の比較</a>
+<a class="toc-link level-3" href="#条件が組み合わさると難しくなる">条件が組み合わさると難しくなる</a>
+<a class="toc-link level-2" href="#7-推奨する送料計算の流れ">7. 推奨する送料計算の流れ</a>
+<a class="toc-link level-3" href="#重要な計算順序">重要な計算順序</a>
+<a class="toc-link level-2" href="#8-開発に必要なデータ">8. 開発に必要なデータ</a>
+<a class="toc-link level-3" href="#商品バリエーションごと">商品・バリエーションごと</a>
+<a class="toc-link level-3" href="#料金ルールごと">料金ルールごと</a>
+<a class="toc-link level-2" href="#9-システム設計で外せない機能">9. システム設計で外せない機能</a>
+<a class="toc-link level-3" href="#最低限必要">最低限必要</a>
+<a class="toc-link level-3" href="#成長後に必要">成長後に必要</a>
+<a class="toc-link level-3" href="#api連携時の安全策">API連携時の安全策</a>
+<a class="toc-link level-2" href="#10-消費者と事業者の希望がぶつかる場面">10. 消費者と事業者の希望がぶつかる場面</a>
+<a class="toc-link level-2" href="#11-おすすめの実装順">11. おすすめの実装順</a>
+<a class="toc-link level-3" href="#第1段階まず安心して販売できる形">第1段階：まず安心して販売できる形</a>
+<a class="toc-link level-3" href="#第2段階精度と選択肢を増やす">第2段階：精度と選択肢を増やす</a>
+<a class="toc-link level-3" href="#第3段階物流全体を最適化する">第3段階：物流全体を最適化する</a>
+<a class="toc-link level-2" href="#12-実装前に決めること--やさしい質問と回答例">12. 実装前に決めること ― やさしい質問と回答例</a>
+<a class="toc-link level-3" href="#まずはこの7つだけ決めればスタートできる">まずは、この7つだけ決めればスタートできる</a>
+<a class="toc-link level-3" href="#12-1-お金について決める">12-1. お金について決める</a>
+<a class="toc-link level-3" href="#12-2-商品と箱について決める">12-2. 商品と箱について決める</a>
+<a class="toc-link level-3" href="#12-3-商品が揃わない時の送り方を決める">12-3. 商品が揃わない時の送り方を決める</a>
+<a class="toc-link level-3" href="#12-4-お客さまに何を見せるか決める">12-4. お客さまに何を見せるか決める</a>
+<a class="toc-link level-3" href="#12-5-うまく計算できない時の対応を決める">12-5. うまく計算できない時の対応を決める</a>
+<a class="toc-link level-3" href="#12-6-誰が設定を管理するか決める">12-6. 誰が設定を管理するか決める</a>
+<a class="toc-link level-3" href="#そのまま使える回答例">そのまま使える回答例</a>
+<a class="toc-link level-2" href="#13-送料設計の評価指標">13. 送料設計の評価指標</a>
+<a class="toc-link level-2" href="#14-今回の提案">14. 今回の提案</a>
+<a class="toc-link level-2" href="#15-baseでできる送料設定">15. BASEでできる送料設定</a>
+<a class="toc-link level-3" href="#結論baseは重量別送料に対応している">結論：BASEは重量別送料に対応している</a>
+<a class="toc-link level-3" href="#比較表の評価ルール">比較表の評価ルール</a>
+<a class="toc-link level-3" href="#base欄の修正版">BASE欄の修正版</a>
+<a class="toc-link level-3" href="#重量別送料の仕組み">重量別送料の仕組み</a>
+<a class="toc-link level-3" href="#サイズ別の言葉に注意">「サイズ別」の言葉に注意</a>
+<a class="toc-link level-3" href="#個数別送料でできること">個数別送料でできること</a>
+<a class="toc-link level-3" href="#温度帯の扱い">温度帯の扱い</a>
+<a class="toc-link level-3" href="#複数の配送方法">複数の配送方法</a>
+<a class="toc-link level-3" href="#配送日時間帯指定">配送日・時間帯指定</a>
+<a class="toc-link level-3" href="#送料詳細設定-appとかんたん発送は別計算">送料詳細設定 Appと「かんたん発送」は別計算</a>
+<a class="toc-link level-3" href="#送料無料の注意点">送料無料の注意点</a>
+<a class="toc-link level-3" href="#baseに向いている送料設計">BASEに向いている送料設計</a>
+<a class="toc-link level-2" href="#参考資料">参考資料</a></div></details>
+      <h1 id="ecにおける送料設計の調査整理" class="report-title">ECにおける送料設計の調査・整理</h1>
+<p>更新日：2026年6月18日 対象：主に日本国内の一般的なEC。越境EC・大型家具・BtoB物流は追加設計が必要。</p>
+<h2 id="0-先に結論">0. 先に結論<a class="anchor" href="#0-先に結論" aria-label="この見出しへのリンク">#</a></h2>
+<p>送料設計の本質は、単に「いくら取るか」ではありません。</p>
+<ol><li><strong>お客さまが安心して買えること</strong>：早い段階で送料が分かり、安さ・速さ・受取方法を選べる</li><li><strong>事業者が赤字にならないこと</strong>：実際の配送原価と、請求する送料の差を管理できる</li><li><strong>出荷現場が迷わないこと</strong>：温度帯、倉庫、箱、配送会社、分割配送が自動で決まる</li></ol>
+<p>この3つを同時に満たす必要があります。</p>
+<blockquote>大事な考え方：<strong>「お客さまに請求する送料」と「配送会社へ払う実費」は別物</strong>として管理する。</blockquote>
+<p>たとえば実費が980円でも、お客さまには全国一律700円、一定額以上は無料、と設定できます。差額は販促費です。これを見える化しないと、売上は増えても利益が残らない状態になりやすいです。</p>
+<hr>
+<h2 id="1-送料を構成する全体像">1. 送料を構成する全体像<a class="anchor" href="#1-送料を構成する全体像" aria-label="この見出しへのリンク">#</a></h2>
+<div class="diagram-wrap">
+      <div class="diagram-label">図解</div>
+      <div class="flow-overview" role="img" aria-label="注文内容、荷物、配送先、配送条件、販売施策、配送会社の情報から送料を計算し、配送方法、請求送料、原価、お届け予定を出す流れ">
+        <div class="flow-column flow-inputs">
+          <p class="flow-caption">計算に使う情報</p>
+          <div class="flow-card "><b>注文内容</b><span>商品・個数・金額</span></div>
+          <div class="flow-card "><b>荷物情報</b><span>重量・縦横高さ・箱</span></div>
+          <div class="flow-card "><b>配送先</b><span>都道府県・郵便番号・離島</span></div>
+          <div class="flow-card "><b>配送条件</b><span>温度帯・倉庫・納期</span></div>
+          <div class="flow-card "><b>販売施策</b><span>送料無料・会員・クーポン</span></div>
+          <div class="flow-card "><b>配送会社</b><span>契約運賃・サービス・追加料金</span></div>
+        </div>
+        <div class="flow-connector"><span>→</span></div>
+        <div class="flow-center">
+          <div class="flow-card flow-engine"><b>送料計算<br>エンジン</b><span>条件をまとめて判定</span></div>
+        </div>
+        <div class="flow-connector"><span>→</span></div>
+        <div class="flow-column flow-results">
+          <p class="flow-caption">計算結果と活用</p>
+          <div class="flow-card result"><b>利用できる配送方法</b></div>
+          <div class="flow-card result"><b>お客さまへの請求送料</b><span>購入画面で理由つき表示</span></div>
+          <div class="flow-card result"><b>想定配送原価</b><span>利益・送料差額を分析</span></div>
+          <div class="flow-card result"><b>お届け予定日・時間帯</b></div>
+        </div>
+      </div>
+    </div>
+<p>送料は主に、次の8つの軸の組み合わせで決まります。</p>
+<div class="table-wrap"><table><thead><tr>
+<th>軸</th>
+<th>代表的な条件</th>
+<th>よくある例</th>
+</tr></thead><tbody>
+<tr>
+<td>注文金額</td>
+<td>税込／税抜、値引き前／後</td>
+<td>10,000円以上で送料無料</td>
+</tr>
+<tr>
+<td>個数</td>
+<td>総個数、商品別個数、箱入数</td>
+<td>2個まで同梱、3個目から2箱</td>
+</tr>
+<tr>
+<td>重量</td>
+<td>商品重量、梱包後重量</td>
+<td>5kgまでは800円、10kgまでは1,000円</td>
+</tr>
+<tr>
+<td>サイズ</td>
+<td>3辺合計、最長辺、容積</td>
+<td>60／80／100サイズで料金変更</td>
+</tr>
+<tr>
+<td>配送先</td>
+<td>都道府県、地域、郵便番号</td>
+<td>北海道・沖縄・離島は別料金</td>
+</tr>
+<tr>
+<td>配送元</td>
+<td>倉庫、店舗、生産者</td>
+<td>2倉庫から出るため送料が2口になる</td>
+</tr>
+<tr>
+<td>商品属性</td>
+<td>常温・冷蔵・冷凍、危険物、大型</td>
+<td>冷凍品は常温品と別梱包</td>
+</tr>
+<tr>
+<td>配送サービス</td>
+<td>速さ、日時指定、置き配、ポスト投函</td>
+<td>安い便／通常便／お急ぎ便から選択</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="2-消費者のニーズ">2. 消費者のニーズ<a class="anchor" href="#2-消費者のニーズ" aria-label="この見出しへのリンク">#</a></h2>
+<p>海外の大規模な購入画面調査でも、送料・税・手数料などの「想定外の追加費用」は、購入をやめる大きな理由として継続的に挙げられています。したがって、送料の安さだけでなく、<strong>早く・正確に・分かりやすく見せること</strong>が重要です。出典：<a href="https://baymard.com/lists/cart-abandonment-rate" target="_blank" rel="noopener noreferrer">Baymard Institute — Cart Abandonment Statistics<span class="external" aria-hidden="true">↗</span></a></p>
+<p>優先度：<strong>★★★＝最優先／★★＝重要／★＝あると良い</strong></p>
+<div class="table-wrap"><table><thead><tr>
+<th>優先度</th>
+<th>消費者のニーズ</th>
+<th>具体的な要望</th>
+<th>EC側で必要な機能</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="priority-stars priority-3" title="最優先" aria-label="最優先">★★★</span></td>
+<td>最終金額を早く知りたい</td>
+<td>決済直前に送料が増えるのは困る</td>
+<td>商品ページ・カートで郵便番号から概算表示</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-3" title="最優先" aria-label="最優先">★★★</span></td>
+<td>送料を安くしたい</td>
+<td>送料無料、まとめ買い、ポスト投函を選びたい</td>
+<td>送料無料条件、安価な配送方法、まとめ配送</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-3" title="最優先" aria-label="最優先">★★★</span></td>
+<td>理由が分かる公平な料金</td>
+<td>同じ商品なのに送料が高い理由を知りたい</td>
+<td>地域・温度帯・複数口などの内訳表示</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
+<td>速さを選びたい</td>
+<td>急ぎなら追加料金を払ってもよい</td>
+<td>通常便／お急ぎ便の比較表示</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
+<td>受取方法を選びたい</td>
+<td>日時指定、置き配、店舗・ロッカー受取</td>
+<td>配送サービス別の受取選択</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
+<td>受取日を知りたい</td>
+<td>「最短○日」だけでなく、自分の住所への予定日が知りたい</td>
+<td>在庫、出荷日、配送日数を合わせて計算</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
+<td>荷物をまとめたい／分けたい</td>
+<td>ゴミを減らしたい、在庫品だけ先に欲しい</td>
+<td>一括配送／準備できた物から配送を選択</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-1" title="あると良い" aria-label="あると良い">★</span></td>
+<td>返品時の扱いを知りたい</td>
+<td>返品送料、初回送料の返金有無を知りたい</td>
+<td>返品ポリシーと注文単位の送料記録</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-1" title="あると良い" aria-label="あると良い">★</span></td>
+<td>会員特典を使いたい</td>
+<td>会員は送料無料、定期便は割安がよい</td>
+<td>会員ランク・定期購入用の送料ルール</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-1" title="あると良い" aria-label="あると良い">★</span></td>
+<td>環境負荷を減らしたい</td>
+<td>過剰包装や分割配送を避けたい</td>
+<td>まとめ配送、簡易包装、配送回数の表示</td>
+</tr>
+</tbody></table></div>
+<h3 id="消費者にとって分かりやすい表示順">消費者にとって分かりやすい表示順<a class="anchor" href="#消費者にとって分かりやすい表示順" aria-label="この見出しへのリンク">#</a></h3>
+<ol><li>商品ページ：「この商品は通常便」「お届け先を入れると送料を確認できます」</li><li>カート：「現在の送料」「あと○円で送料無料」「2便に分かれます」</li><li>購入手続き：「配送方法・到着予定日・送料」を横並びで比較</li><li>注文確定前：「商品代、値引き、送料、手数料、税、総額」を再確認</li><li>注文後：「何が、どの便で、いつ届くか」を荷物単位で表示</li></ol>
+<hr>
+<h2 id="3-事業者のニーズ">3. 事業者のニーズ<a class="anchor" href="#3-事業者のニーズ" aria-label="この見出しへのリンク">#</a></h2>
+<p>優先度：<strong>★★★＝最優先／★★＝重要／★＝あると良い</strong></p>
+<div class="table-wrap"><table><thead><tr>
+<th>優先度</th>
+<th>事業者のニーズ</th>
+<th>失敗すると起きること</th>
+<th>必要な仕組み</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="priority-stars priority-3" title="最優先" aria-label="最優先">★★★</span></td>
+<td>送料赤字を防ぎたい</td>
+<td>遠方・大型・冷凍の注文ほど赤字になる</td>
+<td>請求送料と実費原価を別々に保存・比較</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-3" title="最優先" aria-label="最優先">★★★</span></td>
+<td>計算ミスをなくしたい</td>
+<td>出荷時に箱が大きくなり追加費用が発生</td>
+<td>商品の重量・寸法・温度帯・同梱条件を登録</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-3" title="最優先" aria-label="最優先">★★★</span></td>
+<td>現場を簡単にしたい</td>
+<td>スタッフが毎回、配送会社と箱を判断する</td>
+<td>自動振分けと例外時の手動変更</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-3" title="最優先" aria-label="最優先">★★★</span></td>
+<td>法令に沿って明確に表示したい</td>
+<td>送料が分かりにくく、苦情や離脱が増える</td>
+<td>広告・カート・最終確認画面で料金を明示</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
+<td>購入率を上げたい</td>
+<td>送料が最後まで不明で、カート離脱が増える</td>
+<td>早期見積り、送料無料までの残額表示</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
+<td>客単価を上げたい</td>
+<td>無料条件を低くしすぎて利益が減る</td>
+<td>利益を見ながら送料無料基準を試算</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
+<td>配送会社を使い分けたい</td>
+<td>すべて同じ便にして原価が高くなる</td>
+<td>サイズ・地域・納期ごとの最安／最適便選択</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
+<td>複数倉庫・産直に対応したい</td>
+<td>送料を1口分しか回収できない</td>
+<td>配送元ごとの分割計算、同梱不可の制御</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
+<td>契約運賃の改定に対応したい</td>
+<td>料金改定のたびに改修が必要</td>
+<td>期間つき料金表、CSV取込、履歴管理</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-1" title="あると良い" aria-label="あると良い">★</span></td>
+<td>問い合わせを減らしたい</td>
+<td>「なぜ送料が2回？」が増える</td>
+<td>荷物単位の内訳と理由を表示</td>
+</tr>
+<tr>
+<td><span class="priority-stars priority-1" title="あると良い" aria-label="あると良い">★</span></td>
+<td>分析したい</td>
+<td>送料無料施策が儲かっているか分からない</td>
+<td>送料売上、実費、差額、再配送、地域別分析</td>
+</tr>
+</tbody></table></div>
+<h3 id="法令表示上の最低ライン">法令・表示上の最低ライン<a class="anchor" href="#法令表示上の最低ライン" aria-label="この見出しへのリンク">#</a></h3>
+<p>通信販売では、販売価格だけでなく送料についても表示が必要です。また、注文確定直前の画面では、支払総額などを消費者が確認できる形にする必要があります。実際の画面設計は、商材や販売方法に合わせて専門家にも確認するのが安全です。出典：<a href="https://www.no-trouble.caa.go.jp/what/mailorder/" target="_blank" rel="noopener noreferrer">消費者庁 特定商取引法ガイド「通信販売」<span class="external" aria-hidden="true">↗</span></a></p>
+<hr>
+<h2 id="4-個数重量サイズの深掘り">4. 「個数・重量・サイズ」の深掘り<a class="anchor" href="#4-個数重量サイズの深掘り" aria-label="この見出しへのリンク">#</a></h2>
+<h3 id="4-1-個数で計算する場合">4-1. 個数で計算する場合<a class="anchor" href="#4-1-個数で計算する場合" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>パターン</th>
+<th>計算例</th>
+<th>向いている商材</th>
+<th>注意点</th>
+<th>難易度</th>
+</tr></thead><tbody>
+<tr>
+<td>1注文一律</td>
+<td>何個でも700円</td>
+<td>小型・軽量で差が小さい商品</td>
+<td>大量注文で赤字になる可能性</td>
+<td>★☆☆☆☆</td>
+</tr>
+<tr>
+<td>1個ごと加算</td>
+<td>1個300円 × 個数</td>
+<td>産直、個別梱包商品</td>
+<td>まとめ買いの魅力が弱くなる</td>
+<td>★★☆☆☆</td>
+</tr>
+<tr>
+<td>追加分だけ加算</td>
+<td>1個700円、2個目以降+200円</td>
+<td>同梱で少しずつ箱が大きくなる商品</td>
+<td>商品の組合せで誤差が出る</td>
+<td>★★☆☆☆</td>
+</tr>
+<tr>
+<td>箱入数</td>
+<td>6個まで1箱、7個から2箱</td>
+<td>飲料、米、瓶、セット商品</td>
+<td>異なる商品の混載ルールが必要</td>
+<td>★★★☆☆</td>
+</tr>
+<tr>
+<td>個数別の料金表</td>
+<td>1〜2個700円、3〜5個900円</td>
+<td>寸法がほぼ同じ商品</td>
+<td>SKUごとの「送料計算個数」が必要な場合あり</td>
+<td>★★★☆☆</td>
+</tr>
+</tbody></table></div>
+<p>単純な商品個数ではなく、<strong>送料計算用ポイント</strong>を使う方法もあります。例：小商品=1、大商品=3として、合計ポイントで箱サイズを決めます。正確な箱詰めより簡単で、実務では使いやすい中間案です。</p>
+<h3 id="4-2-重量で計算する場合">4-2. 重量で計算する場合<a class="anchor" href="#4-2-重量で計算する場合" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>重量に含めるもの</th>
+<th>必要性</th>
+<th>注意点</th>
+</tr></thead><tbody>
+<tr>
+<td>商品本体</td>
+<td>必須</td>
+<td>バリエーションごとに重量が違う場合がある</td>
+</tr>
+<tr>
+<td>外箱</td>
+<td>必須に近い</td>
+<td>箱サイズごとに重量を登録</td>
+</tr>
+<tr>
+<td>緩衝材・保冷材</td>
+<td>冷蔵・壊れ物で重要</td>
+<td>季節により保冷剤量が変わることもある</td>
+</tr>
+<tr>
+<td>同梱物</td>
+<td>場合による</td>
+<td>カタログや特典が重い場合は無視できない</td>
+</tr>
+</tbody></table></div>
+<p>重量計算では、境界値を明確にします。「5kgまで」に5.000kgを含むか、梱包後に5kgを超えたらどうするか、上限超過時に2箱へ分けるか、購入不可にするかを決めます。</p>
+<h3 id="4-3-サイズで計算する場合">4-3. サイズで計算する場合<a class="anchor" href="#4-3-サイズで計算する場合" aria-label="この見出しへのリンク">#</a></h3>
+<p>国内宅配便では、3辺合計と重量の両方が関係するサービスがあります。代表例として、ヤマト運輸の宅急便は200サイズ・30kgまで、日本郵便のゆうパックは170サイズ・25kgまでで、25kg超30kg以下には重量ゆうパックがあります。サービス条件や料金は改定されるため、実装では固定値をコードに埋め込まず、管理画面の料金表として持つのが安全です。</p>
+<ul><li><a href="https://www.kuronekoyamato.co.jp/ytc/customer/send/services/takkyubin/" target="_blank" rel="noopener noreferrer">ヤマト運輸「宅急便」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://www.post.japanpost.jp/service/you_pack/index.html" target="_blank" rel="noopener noreferrer">日本郵便「ゆうパック」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://www.sagawa-exp.co.jp/customer/send/service/" target="_blank" rel="noopener noreferrer">佐川急便「配送サービス」<span class="external" aria-hidden="true">↗</span></a></li></ul>
+<h4 id="サイズ計算で特に難しいこと">サイズ計算で特に難しいこと<a class="anchor" href="#サイズ計算で特に難しいこと" aria-label="この見出しへのリンク">#</a></h4>
+<p>商品の縦・横・高さを単純に足しても、実際の箱サイズにはなりません。</p>
+<pre class="code-block"><code>例：30×20×10cmの商品を2個
+
+横に並べる  → 60×20×10 = 90サイズ相当
+縦に重ねる  → 30×20×20 = 70サイズ相当
+個別に送る  → 60サイズ相当 × 2口</code></pre>
+<p>つまり、向きを変えられるか、重ねられるか、壊れ物か、箱に余白が必要かで結果が変わります。この「箱詰め最適化」は開発難易度が高い部分です。</p>
+<p>現実的な選択肢は次の3つです。</p>
+<div class="table-wrap"><table><thead><tr>
+<th>方法</th>
+<th>精度</th>
+<th>開発負担</th>
+<th>おすすめ場面</th>
+</tr></thead><tbody>
+<tr>
+<td>商品ごとに発送サイズを固定</td>
+<td>中</td>
+<td>小</td>
+<td>SKUが少ない、同梱が少ない</td>
+</tr>
+<tr>
+<td>箱入数・送料ポイントで近似</td>
+<td>中〜高</td>
+<td>中</td>
+<td>食品、化粧品、雑貨など一般的なEC</td>
+</tr>
+<tr>
+<td>3次元の箱詰め計算</td>
+<td>高くできる</td>
+<td>大</td>
+<td>SKU・箱・組合せが多く、送料差が大きい</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="5-見落としやすい送料ニーズ">5. 見落としやすい送料ニーズ<a class="anchor" href="#5-見落としやすい送料ニーズ" aria-label="この見出しへのリンク">#</a></h2>
+<div class="table-wrap"><table><thead><tr>
+<th>分類</th>
+<th>ニーズ・条件</th>
+<th>例</th>
+</tr></thead><tbody>
+<tr>
+<td>地域</td>
+<td>都道府県だけでなく郵便番号で例外判定</td>
+<td>離島、中継料金、山間部</td>
+</tr>
+<tr>
+<td>温度帯</td>
+<td>常温・冷蔵・冷凍を分ける</td>
+<td>冷蔵と冷凍を同梱できない</td>
+</tr>
+<tr>
+<td>配送元</td>
+<td>倉庫、生産者、店舗ごとに送料を計算</td>
+<td>産直モール、ドロップシッピング</td>
+</tr>
+<tr>
+<td>発売時期</td>
+<td>予約品と通常品を分ける</td>
+<td>予約商品だけ後日発送</td>
+</tr>
+<tr>
+<td>入荷時期</td>
+<td>欠品商品を待つか、先に送るか</td>
+<td>一括配送／分割配送</td>
+</tr>
+<tr>
+<td>商品制約</td>
+<td>同梱不可、天地無用、危険物、壊れ物</td>
+<td>花、酒、リチウム電池、大型品</td>
+</tr>
+<tr>
+<td>配送方法</td>
+<td>ポスト投函、宅配、チャーター便</td>
+<td>厚み制限を超えたら宅配便へ切替</td>
+</tr>
+<tr>
+<td>決済</td>
+<td>代引き、後払いなどの手数料</td>
+<td>送料とは別の手数料として表示</td>
+</tr>
+<tr>
+<td>会員</td>
+<td>ランク・法人・卸先ごとの料金</td>
+<td>VIP送料無料、卸は実費</td>
+</tr>
+<tr>
+<td>定期便</td>
+<td>毎回固定、回数で無料、まとめ発送</td>
+<td>2か月分まとめて配送</td>
+</tr>
+<tr>
+<td>キャンペーン</td>
+<td>商品限定、地域限定、期間限定</td>
+<td>対象商品を含むと送料無料</td>
+</tr>
+<tr>
+<td>返品・交換</td>
+<td>初回送料、返送料、再送料の負担</td>
+<td>不良品は事業者負担、都合返品は購入者負担</td>
+</tr>
+<tr>
+<td>海外</td>
+<td>容積重量、関税、輸入税、禁制品</td>
+<td>DDP／DAP、通関手数料</td>
+</tr>
+</tbody></table></div>
+<h3 id="温度帯は追加料金だけではない">温度帯は「追加料金」だけではない<a class="anchor" href="#温度帯は追加料金だけではない" aria-label="この見出しへのリンク">#</a></h3>
+<p>クール便は、通常便に料金を足すだけでなく、利用できる最大サイズ・重量、事前の予冷、配送できない品目などの制約があります。ヤマト運輸のクール宅急便も通常の宅急便とは上限条件が異なります。出典：<a href="https://www.kuronekoyamato.co.jp/ytc/customer/send/services/cool/" target="_blank" rel="noopener noreferrer">ヤマト運輸「クール宅急便」<span class="external" aria-hidden="true">↗</span></a></p>
+<hr>
+<h2 id="6-送料方式と開発難易度">6. 送料方式と開発難易度<a class="anchor" href="#6-送料方式と開発難易度" aria-label="この見出しへのリンク">#</a></h2>
+<h3 id="難易度の基準">難易度の基準<a class="anchor" href="#難易度の基準" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>星</th>
+<th>目安</th>
+<th>内容</th>
+</tr></thead><tbody>
+<tr>
+<td>★☆☆☆☆</td>
+<td>とても低い</td>
+<td>管理画面の設定だけでも実現しやすい</td>
+</tr>
+<tr>
+<td>★★☆☆☆</td>
+<td>低い</td>
+<td>単独条件の料金表で実現できる</td>
+</tr>
+<tr>
+<td>★★★☆☆</td>
+<td>中</td>
+<td>複数条件、分割、例外処理が必要</td>
+</tr>
+<tr>
+<td>★★★★☆</td>
+<td>高い</td>
+<td>外部API、箱計算、管理画面、障害対策が必要</td>
+</tr>
+<tr>
+<td>★★★★★</td>
+<td>とても高い</td>
+<td>複数倉庫・複数口・最適化を同時に扱う</td>
+</tr>
+</tbody></table></div>
+<h3 id="方式別の比較">方式別の比較<a class="anchor" href="#方式別の比較" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>送料方式</th>
+<th>顧客の分かりやすさ</th>
+<th>原価精度</th>
+<th>運用負担</th>
+<th>開発難易度</th>
+<th>主な落とし穴</th>
+</tr></thead><tbody>
+<tr>
+<td>全国一律</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>★☆☆☆☆</td>
+<td>遠方・大型で赤字</td>
+</tr>
+<tr>
+<td>完全送料無料</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>★☆☆☆☆</td>
+<td>商品価格への転嫁と利益管理が必要</td>
+</tr>
+<tr>
+<td>注文金額で無料</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>○</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>★★☆☆☆</td>
+<td>値引き前後・税込税抜の基準が曖昧になりやすい</td>
+</tr>
+<tr>
+<td>地域別</td>
+<td>○</td>
+<td>○</td>
+<td>○</td>
+<td>★★☆☆☆</td>
+<td>離島を都道府県だけで判定できない</td>
+</tr>
+<tr>
+<td>個数別</td>
+<td>○</td>
+<td>○</td>
+<td>○</td>
+<td>★★〜★★★</td>
+<td>異なる商品の組合せ</td>
+</tr>
+<tr>
+<td>重量別</td>
+<td>○</td>
+<td>○〜◎</td>
+<td>○</td>
+<td>★★〜★★★</td>
+<td>梱包材重量、登録漏れ、上限超過</td>
+</tr>
+<tr>
+<td>発送サイズ固定</td>
+<td>○</td>
+<td>○</td>
+<td>○</td>
+<td>★★★☆☆</td>
+<td>複数商品を同梱した時の扱い</td>
+</tr>
+<tr>
+<td>箱入数・送料ポイント</td>
+<td>○</td>
+<td>○〜◎</td>
+<td>○</td>
+<td>★★★☆☆</td>
+<td>ポイント調整の運用が必要</td>
+</tr>
+<tr>
+<td>温度帯別</td>
+<td>○</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td>★★★☆☆</td>
+<td>常温・冷蔵・冷凍の分割と上限条件</td>
+</tr>
+<tr>
+<td>配送元別</td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td>★★★★☆</td>
+<td>送料が複数になる理由の説明</td>
+</tr>
+<tr>
+<td>配送会社APIの実時間見積り</td>
+<td>○</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>○</td>
+<td>★★★★☆</td>
+<td>API停止、応答速度、契約運賃、料金変動</td>
+</tr>
+<tr>
+<td>3次元箱詰め＋最適便</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>○</td>
+<td>★★★★★</td>
+<td>計算量、梱包現場との差、説明しにくさ</td>
+</tr>
+<tr>
+<td>複数倉庫の在庫引当＋最適配送</td>
+<td>○</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td>★★★★★</td>
+<td>在庫・納期・送料の最適解が競合する</td>
+</tr>
+</tbody></table></div>
+<h3 id="条件が組み合わさると難しくなる">条件が組み合わさると難しくなる<a class="anchor" href="#条件が組み合わさると難しくなる" aria-label="この見出しへのリンク">#</a></h3>
+<div class="diagram-wrap">
+      <div class="diagram-label">難易度の上がり方</div>
+      <div class="difficulty-flow" role="img" aria-label="固定送料から複数倉庫最適化まで、開発難易度が5段階で上がる図">
+        
+          <div class="difficulty-stage stage-1">
+            <span class="stage-star">★1</span><b>固定送料</b><small>管理画面の設定中心</small>
+          </div><div class="difficulty-arrow">→</div>
+          <div class="difficulty-stage stage-2">
+            <span class="stage-star">★2</span><b>地域・金額・個数</b><small>単独条件の料金表</small>
+          </div><div class="difficulty-arrow">→</div>
+          <div class="difficulty-stage stage-3">
+            <span class="stage-star">★3</span><b>重量・温度帯・同梱</b><small>組合せと例外処理</small>
+          </div><div class="difficulty-arrow">→</div>
+          <div class="difficulty-stage stage-4">
+            <span class="stage-star">★4</span><b>配送会社API・箱選択</b><small>外部連携と障害対策</small>
+          </div><div class="difficulty-arrow">→</div>
+          <div class="difficulty-stage stage-5">
+            <span class="stage-star">★5</span><b>複数倉庫・最適化</b><small>在庫・納期・送料を同時判断</small>
+          </div>
+      </div>
+      <div class="difficulty-notes">
+        <span>例外条件が増える</span><span>配送元が増える</span><span>正確な箱詰めが必要</span>
+      </div>
+    </div>
+<hr>
+<h2 id="7-推奨する送料計算の流れ">7. 推奨する送料計算の流れ<a class="anchor" href="#7-推奨する送料計算の流れ" aria-label="この見出しへのリンク">#</a></h2>
+<div class="diagram-wrap">
+      <div class="diagram-label">送料計算フロー</div>
+      <div class="process-flow" role="img" aria-label="送料計算を10段階で行う流れ">
+        
+          <div class="process-step"><span class="step-number">1</span><div><b>カート・配送先を受け取る</b><small>注文情報を計算の入口にする</small></div></div>
+          <div class="process-step"><span class="step-number">2</span><div><b>商品情報の不足を確認</b><small>重量・寸法・温度帯・配送元</small></div></div>
+          <div class="process-step"><span class="step-number">3</span><div><b>荷物を分ける</b><small>配送元・温度帯・予約・同梱不可</small></div></div>
+          <div class="process-step"><span class="step-number">4</span><div><b>各荷物の箱を決める</b><small>箱入数・重量・サイズ</small></div></div>
+          <div class="process-step"><span class="step-number">5</span><div><b>配送方法を絞る</b><small>地域・上限・日時指定</small></div></div>
+          <div class="process-step"><span class="step-number">6</span><div><b>契約料金と追加料金を計算</b><small>基本運賃・冷蔵・離島など</small></div></div>
+          <div class="process-step"><span class="step-number">7</span><div><b>送料無料・会員特典を適用</b><small>販売施策は実費計算の後</small></div></div>
+          <div class="process-step"><span class="step-number">8</span><div><b>請求送料・原価・差額を計算</b><small>利益への影響も見える化</small></div></div>
+          <div class="process-step"><span class="step-number">9</span><div><b>選べる方法を表示</b><small>安い・早い・おすすめ</small></div></div>
+          <div class="process-step"><span class="step-number">10</span><div><b>注文時の結果を保存</b><small>後日の料金改定に影響されない</small></div></div>
+      </div>
+    </div>
+<h3 id="重要な計算順序">重要な計算順序<a class="anchor" href="#重要な計算順序" aria-label="この見出しへのリンク">#</a></h3>
+<ol><li>先に「何個口になるか」を決める</li><li>その後で各荷物の実費を出す</li><li>最後に送料無料や会員割引を適用する</li><li>注文時の料金表・計算理由を保存する</li></ol>
+<p>料金表を後日変更しても、過去注文の送料が変わらないようにするためです。</p>
+<hr>
+<h2 id="8-開発に必要なデータ">8. 開発に必要なデータ<a class="anchor" href="#8-開発に必要なデータ" aria-label="この見出しへのリンク">#</a></h2>
+<h3 id="商品バリエーションごと">商品・バリエーションごと<a class="anchor" href="#商品バリエーションごと" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>項目</th>
+<th>必須度</th>
+<th>用途</th>
+</tr></thead><tbody>
+<tr>
+<td>商品重量</td>
+<td>高</td>
+<td>重量帯・配送上限の判定</td>
+</tr>
+<tr>
+<td>縦・横・高さ</td>
+<td>中〜高</td>
+<td>箱・サイズの推定</td>
+</tr>
+<tr>
+<td>送料区分</td>
+<td>高</td>
+<td>小型、通常、大型、個別送料など</td>
+</tr>
+<tr>
+<td>温度帯</td>
+<td>食品では高</td>
+<td>常温・冷蔵・冷凍の分割</td>
+</tr>
+<tr>
+<td>配送元</td>
+<td>複数拠点では高</td>
+<td>倉庫・生産者ごとの分割</td>
+</tr>
+<tr>
+<td>同梱可否</td>
+<td>高</td>
+<td>個別発送、危険物、壊れ物への対応</td>
+</tr>
+<tr>
+<td>1箱の上限数</td>
+<td>商材次第</td>
+<td>ケース・箱入数計算</td>
+</tr>
+<tr>
+<td>回転・積重ね可否</td>
+<td>高精度計算時</td>
+<td>箱詰め計算</td>
+</tr>
+<tr>
+<td>出荷までの日数</td>
+<td>高</td>
+<td>お届け予定日の計算</td>
+</tr>
+</tbody></table></div>
+<h3 id="料金ルールごと">料金ルールごと<a class="anchor" href="#料金ルールごと" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>項目</th>
+<th>例</th>
+</tr></thead><tbody>
+<tr>
+<td>適用期間</td>
+<td>2026-07-01〜2027-03-31</td>
+</tr>
+<tr>
+<td>配送会社・サービス</td>
+<td>ヤマト宅急便、ゆうパック、ポスト投函便</td>
+</tr>
+<tr>
+<td>出荷地域・配送地域</td>
+<td>関東発→九州着</td>
+</tr>
+<tr>
+<td>サイズ・重量帯</td>
+<td>80サイズ、5kg以下</td>
+</tr>
+<tr>
+<td>基本運賃・契約運賃</td>
+<td>事業者が実際に払う予定額</td>
+</tr>
+<tr>
+<td>お客さまへの請求額</td>
+<td>一律料金や販促適用後の額</td>
+</tr>
+<tr>
+<td>追加料金</td>
+<td>冷蔵、冷凍、離島、代引き、大型</td>
+</tr>
+<tr>
+<td>優先順位・併用可否</td>
+<td>会員無料とキャンペーンを併用するか</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="9-システム設計で外せない機能">9. システム設計で外せない機能<a class="anchor" href="#9-システム設計で外せない機能" aria-label="この見出しへのリンク">#</a></h2>
+<h3 id="最低限必要">最低限必要<a class="anchor" href="#最低限必要" aria-label="この見出しへのリンク">#</a></h3>
+<ul><li>料金表をコード修正なしで変更できる管理画面</li><li>商品の重量、送料区分、温度帯、配送元</li><li>地域・金額・個数・重量による条件設定</li><li>送料無料条件と対象外商品の設定</li><li>送料内訳と「なぜこの金額か」の表示</li><li>注文時の計算結果・料金表版の保存</li><li>管理者による送料の手動変更と変更履歴</li><li>ルール変更前に試せるテスト計算</li></ul>
+<h3 id="成長後に必要">成長後に必要<a class="anchor" href="#成長後に必要" aria-label="この見出しへのリンク">#</a></h3>
+<ul><li>郵便番号単位の離島・中継料金判定</li><li>複数倉庫・複数温度帯・予約品の分割</li><li>配送会社API、送り状、追跡番号との連携</li><li>箱の自動選択</li><li>契約運賃CSVの一括取込</li><li>送料差額と利益の分析</li><li>APIが止まった時の代替料金</li></ul>
+<h3 id="api連携時の安全策">API連携時の安全策<a class="anchor" href="#api連携時の安全策" aria-label="この見出しへのリンク">#</a></h3>
+<p>配送会社APIを呼ぶ場合も、APIが遅い・止まる・料金が返らない場合に購入できなくならない設計が必要です。</p>
+<ol><li>数秒で応答しなければ代替の料金表を使う</li><li>同じ条件の見積りを短時間保存して、毎回呼ばない</li><li>住所変更・商品変更時だけ再計算する</li><li>注文時の回答を保存する</li><li>出荷時の実費との差を後から確認する</li></ol>
+<hr>
+<h2 id="10-消費者と事業者の希望がぶつかる場面">10. 消費者と事業者の希望がぶつかる場面<a class="anchor" href="#10-消費者と事業者の希望がぶつかる場面" aria-label="この見出しへのリンク">#</a></h2>
+<div class="table-wrap"><table><thead><tr>
+<th>ぶつかる点</th>
+<th>消費者の希望</th>
+<th>事業者の希望</th>
+<th>両方を幸せにする案</th>
+</tr></thead><tbody>
+<tr>
+<td>送料</td>
+<td>できるだけ無料</td>
+<td>赤字にしたくない</td>
+<td>粗利から逆算した無料基準＋残額表示</td>
+</tr>
+<tr>
+<td>表示</td>
+<td>単純で分かりやすく</td>
+<td>原価どおり細かく請求</td>
+<td>最初は概算、カートでは理由つきの確定額</td>
+</tr>
+<tr>
+<td>到着</td>
+<td>早く欲しい</td>
+<td>まとめて安く送りたい</td>
+<td>「まとめて安い」「分けて早い」を選べる</td>
+</tr>
+<tr>
+<td>配送会社</td>
+<td>好きな会社を選びたい</td>
+<td>最安の会社を使いたい</td>
+<td>標準便は自動、お急ぎ・指定は追加料金</td>
+</tr>
+<tr>
+<td>梱包</td>
+<td>小さく、ゴミを減らしたい</td>
+<td>破損を減らしたい</td>
+<td>簡易包装／しっかり包装を商材に応じて選択</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="11-おすすめの実装順">11. おすすめの実装順<a class="anchor" href="#11-おすすめの実装順" aria-label="この見出しへのリンク">#</a></h2>
+<p>いきなり完全自動を目指すと、商品データ整備と例外処理が重くなります。まず「赤字と説明不足を防ぐ」ところから始めるのが現実的です。</p>
+<h3 id="第1段階まず安心して販売できる形">第1段階：まず安心して販売できる形<a class="anchor" href="#第1段階まず安心して販売できる形" aria-label="この見出しへのリンク">#</a></h3>
+<p>難易度：★★★☆☆</p>
+<ul><li>地域別送料</li><li>注文金額による送料無料</li><li>商品ごとの送料区分</li><li>温度帯・配送元・同梱不可による分割</li><li>カートで送料と分割理由を表示</li><li>請求送料と想定原価を別保存</li></ul>
+<h3 id="第2段階精度と選択肢を増やす">第2段階：精度と選択肢を増やす<a class="anchor" href="#第2段階精度と選択肢を増やす" aria-label="この見出しへのリンク">#</a></h3>
+<p>難易度：★★★★☆</p>
+<ul><li>個数・重量・箱入数でサイズを推定</li><li>安い便／通常便／お急ぎ便</li><li>郵便番号による例外地域</li><li>お届け予定日、日時指定</li><li>契約運賃CSVと料金表の期間管理</li></ul>
+<h3 id="第3段階物流全体を最適化する">第3段階：物流全体を最適化する<a class="anchor" href="#第3段階物流全体を最適化する" aria-label="この見出しへのリンク">#</a></h3>
+<p>難易度：★★★★★</p>
+<ul><li>配送会社APIによる見積り</li><li>箱詰め最適化</li><li>複数倉庫の在庫引当と送料最適化</li><li>分割／一括配送の顧客選択</li><li>実費差額・利益・配送品質を使った自動改善</li></ul>
+<hr>
+<h2 id="12-実装前に決めること--やさしい質問と回答例">12. 実装前に決めること ― やさしい質問と回答例<a class="anchor" href="#12-実装前に決めること--やさしい質問と回答例" aria-label="この見出しへのリンク">#</a></h2>
+<p>送料の仕組みを作る前に、ショップ側で決めておく内容です。難しい言葉で考える必要はありません。まずは、下の質問に普段の言葉で答えられれば大丈夫です。</p>
+<p>正解は1つではありません。「うちのお店なら、こうしたい」で決めてOKです。</p>
+<h3 id="まずはこの7つだけ決めればスタートできる">まずは、この7つだけ決めればスタートできる<a class="anchor" href="#まずはこの7つだけ決めればスタートできる" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>質問</th>
+<th>回答例</th>
+</tr></thead><tbody>
+<tr>
+<td>① 送料は全国同じにする？地域で変える？</td>
+<td>本州800円、北海道1,300円、沖縄1,500円</td>
+</tr>
+<tr>
+<td>② いくら買ったら送料無料にする？</td>
+<td>商品合計10,000円以上で送料無料</td>
+</tr>
+<tr>
+<td>③ 商品が増えたら送料をどう変える？</td>
+<td>2個まで800円、3個以上は1,100円</td>
+</tr>
+<tr>
+<td>④ 一緒の箱に入れられない商品はある？</td>
+<td>常温と冷凍は別の箱・別の送料にする</td>
+</tr>
+<tr>
+<td>⑤ 予約商品と通常商品を一緒に買ったら？</td>
+<td>通常商品を先に送り、予約商品は後から送る</td>
+</tr>
+<tr>
+<td>⑥ お客さまへ、いつ送料を見せる？</td>
+<td>カートに入れた時点で送料を表示する</td>
+</tr>
+<tr>
+<td>⑦ 送料を計算できない注文が来たら？</td>
+<td>その場では注文させず、問い合わせ案内を出す</td>
+</tr>
+</tbody></table></div>
+<blockquote>迷ったら、最初は「地域別送料＋10,000円以上で送料無料＋冷凍は別便」くらいから始めると、複雑になりすぎません。</blockquote>
+<h3 id="12-1-お金について決める">12-1. お金について決める<a class="anchor" href="#12-1-お金について決める" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>やさしい質問</th>
+<th>たとえば</th>
+<th>これを決める理由</th>
+</tr></thead><tbody>
+<tr>
+<td>送料を分かりやすくする？実費に近くする？</td>
+<td>分かりやすさ重視なら全国一律800円。実費重視なら地域別に700〜1,500円</td>
+<td>全国一律は簡単ですが、遠い地域ではショップの負担が増えます</td>
+</tr>
+<tr>
+<td>いくら以上買ったら送料無料にする？</td>
+<td>10,000円以上で送料無料</td>
+<td>まとめ買いを増やせます。ただし送料はショップ負担になります</td>
+</tr>
+<tr>
+<td>北海道・沖縄・離島も送料無料にする？</td>
+<td>本州は無料、北海道・沖縄は500円だけ追加</td>
+<td>遠い地域まで完全無料にすると、注文によって赤字になることがあります</td>
+</tr>
+<tr>
+<td>冷蔵・冷凍・大型商品も送料無料にする？</td>
+<td>通常商品は無料、冷凍便は別途300円</td>
+<td>特別な配送は追加料金がかかるためです</td>
+</tr>
+<tr>
+<td>送料をショップが少し負担してもよい？</td>
+<td>実際の送料1,000円、お客さまから800円、差額200円はショップ負担</td>
+<td>送料を安く見せる代わりに、1注文でいくら負担するか決めておきます</td>
+</tr>
+</tbody></table></div>
+<h4 id="送料をショップが負担するとは">送料をショップが負担する、とは？<a class="anchor" href="#送料をショップが負担するとは" aria-label="この見出しへのリンク">#</a></h4>
+<pre class="code-block"><code>配送会社へ払う送料：1,000円
+お客さまから受け取る送料：800円
+ショップが負担する金額：200円</code></pre>
+<p>この200円を「お客さまに買いやすくするための広告費」と考えるか、「赤字なので避ける」と考えるかを決めます。</p>
+<h3 id="12-2-商品と箱について決める">12-2. 商品と箱について決める<a class="anchor" href="#12-2-商品と箱について決める" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>やさしい質問</th>
+<th>たとえば</th>
+<th>これを決める理由</th>
+</tr></thead><tbody>
+<tr>
+<td>商品の重さは分かる？</td>
+<td>コーヒー1袋250g、瓶1本700g</td>
+<td>重量で送料を変える場合に必要です</td>
+</tr>
+<tr>
+<td>商品の大きさは分かる？</td>
+<td>縦20cm・横15cm・高さ8cm</td>
+<td>60サイズか80サイズかを考える材料になります</td>
+</tr>
+<tr>
+<td>1つの箱に何個まで入る？</td>
+<td>瓶は6本まで1箱、7本から2箱</td>
+<td>箱が増えるタイミングで送料も変わるためです</td>
+</tr>
+<tr>
+<td>一緒に入れてはいけない商品はある？</td>
+<td>常温と冷凍、食品と割れ物は別箱</td>
+<td>別箱になると、送料も2件分になる場合があります</td>
+</tr>
+<tr>
+<td>商品はどこから発送する？</td>
+<td>全商品を沖縄倉庫から発送／生産者ごとに発送</td>
+<td>発送元が違う商品は、同じ箱にまとめられません</td>
+</tr>
+<tr>
+<td>箱や保冷剤の重さも送料に入れる？</td>
+<td>商品4.8kg＋箱・保冷剤0.5kg＝5.3kg</td>
+<td>商品だけなら5kg以下でも、梱包後は5kgを超えることがあります</td>
+</tr>
+</tbody></table></div>
+<h4 id="箱数を決める例">箱数を決める例<a class="anchor" href="#箱数を決める例" aria-label="この見出しへのリンク">#</a></h4>
+<pre class="code-block"><code>商品1〜6個   → 1箱 → 送料800円
+商品7〜12個  → 2箱 → 送料1,600円
+商品13〜18個 → 3箱 → 送料2,400円</code></pre>
+<p>「何個まで1箱に入るか」が分からない場合は、実際の商品と箱を使って一度詰めてみるのが一番確実です。</p>
+<h3 id="12-3-商品が揃わない時の送り方を決める">12-3. 商品が揃わない時の送り方を決める<a class="anchor" href="#12-3-商品が揃わない時の送り方を決める" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>やさしい質問</th>
+<th>選択肢A</th>
+<th>選択肢B</th>
+</tr></thead><tbody>
+<tr>
+<td>予約商品と通常商品を一緒に買ったら？</td>
+<td>全部揃ってから1回で送る。送料は安いが、通常商品も遅くなる</td>
+<td>通常商品を先に送る。早いが、送料が2回分かかる</td>
+</tr>
+<tr>
+<td>1商品だけ欠品していたら？</td>
+<td>入荷まで全部待つ</td>
+<td>在庫がある商品だけ先に送る</td>
+</tr>
+<tr>
+<td>発送元が2か所になったら？</td>
+<td>送料を1件分だけ請求し、差額はショップ負担</td>
+<td>発送元ごとに送料を請求する</td>
+</tr>
+<tr>
+<td>常温と冷凍を一緒に買ったら？</td>
+<td>冷凍便にまとめる。商品によっては不可</td>
+<td>常温便と冷凍便に分け、送料を2件分にする</td>
+</tr>
+</tbody></table></div>
+<p>お客さまに選んでもらう方法もあります。</p>
+<ul><li>「全部揃ってから、まとめて安く受け取る」</li><li>「送料が増えても、用意できた商品から早く受け取る」</li></ul>
+<h3 id="12-4-お客さまに何を見せるか決める">12-4. お客さまに何を見せるか決める<a class="anchor" href="#12-4-お客さまに何を見せるか決める" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>やさしい質問</th>
+<th>表示例</th>
+<th>おすすめ</th>
+</tr></thead><tbody>
+<tr>
+<td>商品ページで送料を見せる？</td>
+<td>「沖縄県への送料は1,200円です」</td>
+<td>住所が未入力なら「送料800円〜」でもよい</td>
+</tr>
+<tr>
+<td>カートで送料を見せる？</td>
+<td>「商品代5,000円＋送料800円＝合計5,800円」</td>
+<td>決済直前ではなく、カートで見せる</td>
+</tr>
+<tr>
+<td>送料無料までの残り金額を見せる？</td>
+<td>「あと2,000円で送料無料」</td>
+<td>まとめ買いにつながるので、表示できるならおすすめ</td>
+</tr>
+<tr>
+<td>荷物が2つに分かれることを説明する？</td>
+<td>「冷凍商品を含むため、2便で届きます」</td>
+<td>送料が2件分になる理由も一緒に表示する</td>
+</tr>
+<tr>
+<td>安い便と早い便を選べるようにする？</td>
+<td>通常便800円／お急ぎ便1,200円</td>
+<td>商品や出荷現場が対応できる場合だけ用意する</td>
+</tr>
+</tbody></table></div>
+<h4 id="分かりやすい送料表示の例">分かりやすい送料表示の例<a class="anchor" href="#分かりやすい送料表示の例" aria-label="この見出しへのリンク">#</a></h4>
+<pre class="code-block"><code>商品代　　　　　　 8,000円
+冷凍便送料　　　　　 900円
+常温便送料　　　　　 700円
+クーポン　　　　　 −500円
+────────────────
+お支払い合計　　　 9,100円
+
+※常温商品と冷凍商品は、別々の荷物で届きます。</code></pre>
+<h3 id="12-5-うまく計算できない時の対応を決める">12-5. うまく計算できない時の対応を決める<a class="anchor" href="#12-5-うまく計算できない時の対応を決める" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>困った状況</th>
+<th>選べる対応</th>
+<th>分かりやすい例</th>
+</tr></thead><tbody>
+<tr>
+<td>送料を計算できない</td>
+<td>購入を止める／仮送料で受ける／後から連絡する</td>
+<td>「この商品は個別見積りです。お問い合わせください」</td>
+</tr>
+<tr>
+<td>商品の重さが未登録</td>
+<td>0gで計算／購入を止める／仮の重さを使う</td>
+<td>未登録を0gにすると送料不足になりやすいので注意</td>
+</tr>
+<tr>
+<td>設定した最大重量を超えた</td>
+<td>購入を止める／大型便へ切り替える</td>
+<td>「30kgを超えるため、別途送料をご案内します」</td>
+</tr>
+<tr>
+<td>配送会社との連携が止まった</td>
+<td>購入を止める／予備の送料表を使う</td>
+<td>APIが動かない時は、全国一律1,000円で仮計算する</td>
+</tr>
+<tr>
+<td>実際の送料と計算結果が違った</td>
+<td>ショップ負担／追加請求／返金</td>
+<td>差額300円以内ならショップ負担、と決めておく</td>
+</tr>
+</tbody></table></div>
+<h3 id="12-6-誰が設定を管理するか決める">12-6. 誰が設定を管理するか決める<a class="anchor" href="#12-6-誰が設定を管理するか決める" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>やさしい質問</th>
+<th>回答例</th>
+</tr></thead><tbody>
+<tr>
+<td>配送会社が値上げした時、誰が送料を直す？</td>
+<td>店長が新料金を登録し、経理担当が確認する</td>
+</tr>
+<tr>
+<td>いつ新料金へ切り替える？</td>
+<td>2026年10月1日発送分から変更する</td>
+</tr>
+<tr>
+<td>スタッフが注文ごとの送料を変更してよい？</td>
+<td>300円までなら変更可。それ以上は店長確認</td>
+</tr>
+<tr>
+<td>設定変更前にテストする？</td>
+<td>東京・北海道・沖縄、1個・5個・大量注文で試す</td>
+</tr>
+</tbody></table></div>
+<h3 id="そのまま使える回答例">そのまま使える回答例<a class="anchor" href="#そのまま使える回答例" aria-label="この見出しへのリンク">#</a></h3>
+<p>まだ決まっていない場合は、いったん次の内容で始められます。</p>
+<blockquote><strong>送料は本州800円、北海道1,300円、沖縄1,500円。商品合計10,000円以上で本州送料無料。冷蔵・冷凍は別送料。1箱6個まで。予約商品は全部揃ってから発送。送料はカートで表示。計算できない注文は購入を止めて問い合わせを案内する。</strong></blockquote>
+<p>販売を始めた後に、実際の送料差額やお客さまの反応を見ながら調整すれば大丈夫です。</p>
+<hr>
+<h2 id="13-送料設計の評価指標">13. 送料設計の評価指標<a class="anchor" href="#13-送料設計の評価指標" aria-label="この見出しへのリンク">#</a></h2>
+<div class="table-wrap"><table><thead><tr>
+<th>指標</th>
+<th>見たいこと</th>
+</tr></thead><tbody>
+<tr>
+<td>カート→購入完了率</td>
+<td>送料表示で購入をやめていないか</td>
+</tr>
+<tr>
+<td>送料無料利用率</td>
+<td>無料条件が低すぎ・高すぎないか</td>
+</tr>
+<tr>
+<td>平均注文額</td>
+<td>送料無料条件がまとめ買いにつながったか</td>
+</tr>
+<tr>
+<td>送料回収率</td>
+<td>請求送料 ÷ 実際の配送原価</td>
+</tr>
+<tr>
+<td>1注文あたり送料差額</td>
+<td>送料施策にいくら負担しているか</td>
+</tr>
+<tr>
+<td>分割配送率</td>
+<td>倉庫・温度帯・欠品で荷物が増えていないか</td>
+</tr>
+<tr>
+<td>見積り誤差</td>
+<td>購入時の想定原価と出荷時実費の差</td>
+</tr>
+<tr>
+<td>問い合わせ率</td>
+<td>送料・到着日・分割への疑問が減ったか</td>
+</tr>
+<tr>
+<td>破損・再送率</td>
+<td>安さを優先しすぎて品質が落ちていないか</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="14-今回の提案">14. 今回の提案<a class="anchor" href="#14-今回の提案" aria-label="この見出しへのリンク">#</a></h2>
+<p>一般的な国内ECなら、最初の実装として次の組み合わせがバランス良好です。</p>
+<blockquote><strong>地域別基本送料 ＋ 送料無料基準 ＋ 商品の送料区分 ＋ 温度帯／配送元の分割 ＋ 箱入数または送料ポイント</strong></blockquote>
+<p>この形なら、単純な一律送料より赤字を減らしつつ、3次元の箱詰め計算よりも現場で調整しやすいです。</p>
+<p>ただし最適解は、商品構成で大きく変わります。次に「実際の商品一覧、重量・サイズ、冷蔵冷凍、配送元、現在の契約運賃」を当てはめれば、送料ルール表と画面仕様まで具体化できます。</p>
+<hr>
+<h2 id="15-baseでできる送料設定">15. BASEでできる送料設定<a class="anchor" href="#15-baseでできる送料設定" aria-label="この見出しへのリンク">#</a></h2>
+<p>調査基準日：2026年6月18日 対象範囲：BASE本体に加え、BASE公式の「送料詳細設定 App」「配送日設定 App」を含む。</p>
+<h3 id="結論baseは重量別送料に対応している">結論：BASEは重量別送料に対応している<a class="anchor" href="#結論baseは重量別送料に対応している" aria-label="この見出しへのリンク">#</a></h3>
+<blockquote><strong>訂正：比較表の「BASE／重量別送料＝×」は誤りで、公式Appを含む評価なら「◎」です。</strong></blockquote>
+<p>BASE公式ヘルプには、「送料詳細設定 App」で購入商品の<strong>合計重量</strong>に応じて、梱包サイズごとの送料を設定できることが明記されています。商品ごとに重量を設定し、たとえば「2kg以下は60サイズ」「2kg超〜5kg以下は80サイズ」「5kg超は100サイズ」のように切り替えられます。</p>
+<p>出典：<a href="https://help.thebase.in/hc/ja/articles/25863173380889" target="_blank" rel="noopener noreferrer">BASE公式「購入された重量に応じた送料を設定する方法」<span class="external" aria-hidden="true">↗</span></a></p>
+<h3 id="比較表の評価ルール">比較表の評価ルール<a class="anchor" href="#比較表の評価ルール" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>記号</th>
+<th>意味</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>BASEまたは公式Appに直接その機能がある</td>
+</tr>
+<tr>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td>代替設定・手動運用・別Appで一部実現できる</td>
+</tr>
+<tr>
+<td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
+<td>標準機能・公式Appでは自動実現できない</td>
+</tr>
+<tr>
+<td><span class="status-badge status-check">要確認</span></td>
+<td>公式公開資料に明確な上限・仕様を確認できない</td>
+</tr>
+</tbody></table></div>
+<h3 id="base欄の修正版">BASE欄の修正版<a class="anchor" href="#base欄の修正版" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>機能</th>
+<th>修正評価</th>
+<th>BASEでの実現方法</th>
+<th>制約・正しい読み方</th>
+</tr></thead><tbody>
+<tr>
+<td>全国一律送料</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>ショップ送料、または送料詳細設定 App</td>
+<td>商品数に関係ない一律設定も可能</td>
+</tr>
+<tr>
+<td>都道府県別送料</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>送料詳細設定 Appの地域別送料</td>
+<td>エリア別・都道府県別に設定可能</td>
+</tr>
+<tr>
+<td>郵便番号別送料</td>
+<td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
+<td>―</td>
+<td>郵便番号単位の料金分岐は確認できない</td>
+</tr>
+<tr>
+<td>離島追加料金</td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td>都道府県別送料で近似</td>
+<td>同じ都道府県内の本土と離島を自動で分けられない</td>
+</tr>
+<tr>
+<td>重量別送料</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>商品重量の合計で梱包サイズと送料を切替</td>
+<td><strong>旧比較表の×を訂正</strong>。国内配送のみ</td>
+</tr>
+<tr>
+<td>サイズ別送料（3辺合計）</td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td>60・80・100などのサイズ名と送料を登録</td>
+<td>3辺を自動計測・合算する機能ではなく、個数・重量でサイズを切り替える方式</td>
+</tr>
+<tr>
+<td>区分・サイズ数の上限</td>
+<td><span class="status-badge status-check">要確認</span></td>
+<td>複数サイズを登録可能</td>
+<td>確認した公式資料には明確な数値上限の記載なし</td>
+</tr>
+<tr>
+<td>段階式の個数別送料</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>商品の合計個数で梱包サイズを切替</td>
+<td><strong>旧比較表の×を訂正</strong></td>
+</tr>
+<tr>
+<td>個数×固定送料</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>「商品数ごとに送料を計算する」</td>
+<td>3個購入なら送料3個分、などの計算が可能</td>
+</tr>
+<tr>
+<td>何個買っても固定送料</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>「まとめて1点として送料を計算する」</td>
+<td>同じ配送方法の商品は1件分として計算</td>
+</tr>
+<tr>
+<td>クール便手数料</td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td>常温・冷蔵・冷凍ごとに配送方法と送料を作成</td>
+<td>「クール加算」専用項目ではなく、別配送方法として表現</td>
+</tr>
+<tr>
+<td>温度帯別の同梱判定</td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td>温度帯ごとに配送方法を分け、対象商品を割当</td>
+<td>商品属性からの完全自動判定ではなく、事前設定が必要</td>
+</tr>
+<tr>
+<td>ギフト配送フラグ</td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td>購入者と届け先を別住所にすることは可能</td>
+<td>ギフトかどうかで送料を自動分岐する専用機能は確認できない</td>
+</tr>
+<tr>
+<td>1注文→複数住所へ分割</td>
+<td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
+<td>注文を分ける運用</td>
+<td>1注文内で複数のお届け先に自動分割する機能は確認できない</td>
+</tr>
+<tr>
+<td>複数個口の自動出荷</td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td>送料請求は複数配送方法で表現可能</td>
+<td>「かんたん発送」は1注文につき1配送分のみ。2個口目以降は別手段で出荷</td>
+</tr>
+<tr>
+<td>配送方法・配送業者の選択</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>商品へ複数の配送方法を設定</td>
+<td>最安方法が最初に選ばれ、購入者は別方法も選択可能。最安だけの表示にもできる</td>
+</tr>
+<tr>
+<td>配送日・時間帯指定</td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td>配送日設定 App</td>
+<td>指定自体は可能だが、1ショップ1パターン。送料詳細設定 Appの配送方法とは連動しない</td>
+</tr>
+<tr>
+<td>置き配指定</td>
+<td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
+<td>―</td>
+<td>購入画面の標準的な置き配選択機能は確認できない</td>
+</tr>
+<tr>
+<td>○円以上で送料無料</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>送料詳細設定 Appの送料無料条件</td>
+<td>割引後の注文合計で判定。海外配送には適用されない</td>
+</tr>
+<tr>
+<td>「あと○円で送料無料」表示</td>
+<td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
+<td>―</td>
+<td>送料無料条件は作れるが、残額を自動表示する機能ではない</td>
+</tr>
+<tr>
+<td>海外の国・地域別送料</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>海外配送方法で国・地域別に設定</td>
+<td>国ごとの配送不可設定も可能</td>
+</tr>
+</tbody></table></div>
+<h3 id="重量別送料の仕組み">重量別送料の仕組み<a class="anchor" href="#重量別送料の仕組み" aria-label="この見出しへのリンク">#</a></h3>
+<ol><li>商品ごとの設定画面で重量をグラム単位で登録する</li><li>送料詳細設定 Appで「サイズ別送料（重量別）」を選ぶ</li><li>60・80・100サイズなど、使う梱包サイズと送料を登録する</li><li>「商品の重量別で管理する」を選ぶ</li><li>合計重量ごとの範囲を設定する</li><li>その配送方法を使う対象商品を選ぶ</li></ol>
+<p>設定例：</p>
+<div class="table-wrap"><table><thead><tr>
+<th>購入商品の合計重量</th>
+<th>適用サイズ</th>
+<th>請求する送料</th>
+</tr></thead><tbody>
+<tr>
+<td>2,000g以下</td>
+<td>宅急便60サイズ</td>
+<td>60サイズの全国一律または地域別送料</td>
+</tr>
+<tr>
+<td>2,001〜5,000g</td>
+<td>宅急便80サイズ</td>
+<td>80サイズの全国一律または地域別送料</td>
+</tr>
+<tr>
+<td>5,001g以上</td>
+<td>宅急便100サイズ</td>
+<td>100サイズの全国一律または地域別送料</td>
+</tr>
+</tbody></table></div>
+<h4 id="重量設定の注意点">重量設定の注意点<a class="anchor" href="#重量設定の注意点" aria-label="この見出しへのリンク">#</a></h4>
+<ul><li>商品重量はショップ側が事前に登録する。配送会社の計量結果を自動取得する機能ではない</li><li>重量未設定の商品は0gとして計算される</li><li>重量別設定は国内配送方法のみ</li><li>すべての重量範囲をカバーしないと、条件外の注文で配送方法を選べない場合がある</li><li>梱包箱、緩衝材、保冷剤の重量も考え、商品重量へ上乗せするか境界に余裕を持たせる必要がある</li></ul>
+<h3 id="サイズ別の言葉に注意">「サイズ別」の言葉に注意<a class="anchor" href="#サイズ別の言葉に注意" aria-label="この見出しへのリンク">#</a></h3>
+<p>BASEの「サイズ別送料」は、梱包サイズの名前と料金を登録し、<strong>商品の合計個数または合計重量</strong>を条件にサイズを切り替える機能です。</p>
+<p>商品の縦・横・高さを登録して3辺合計を自動計算したり、商品をどの箱へ入れるかを自動で最適化したりする機能ではありません。そのため、比較表の項目が「サイズ別送料（3辺合計）」なら、BASEは<strong>◎ではなく△</strong>が適切です。</p>
+<h3 id="個数別送料でできること">個数別送料でできること<a class="anchor" href="#個数別送料でできること" aria-label="この見出しへのリンク">#</a></h3>
+<p>BASEは、個数に関して2種類の計算ができます。</p>
+<div class="table-wrap"><table><thead><tr>
+<th>方法</th>
+<th>計算例</th>
+<th>評価</th>
+</tr></thead><tbody>
+<tr>
+<td>合計個数でサイズを切り替える</td>
+<td>1〜2個は60サイズ、3〜5個は80サイズ</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+</tr>
+<tr>
+<td>個数分だけ送料を加算する</td>
+<td>送料500円の商品を3個で1,500円</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+</tr>
+<tr>
+<td>何個でも1件分に固定する</td>
+<td>3個購入しても送料500円</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+</tr>
+</tbody></table></div>
+<p>出典：<a href="https://help.thebase.in/hc/ja/articles/25863317151129" target="_blank" rel="noopener noreferrer">BASE公式「購入された個数に応じた送料を設定する方法」<span class="external" aria-hidden="true">↗</span></a></p>
+<h3 id="温度帯の扱い">温度帯の扱い<a class="anchor" href="#温度帯の扱い" aria-label="この見出しへのリンク">#</a></h3>
+<p>常温・冷蔵・冷凍ごとに配送方法を作り、対象商品をそれぞれ割り当てれば、1注文で温度帯ごとの送料を請求できます。ただし「商品に温度帯属性を持たせて、システムが自動で同梱可否を最適判断する」仕組みではありません。</p>
+<p>したがって、比較表では次の評価が適切です。</p>
+<ul><li>クール便手数料：△（別配送方法として料金へ含められる）</li><li>温度帯別の同梱判定：△（商品と配送方法の事前割当で実現）</li></ul>
+<p>出典：<a href="https://help.thebase.in/hc/ja/articles/25863378511257" target="_blank" rel="noopener noreferrer">BASE公式「温度帯ごとに送料を設定する方法」<span class="external" aria-hidden="true">↗</span></a></p>
+<h3 id="複数の配送方法">複数の配送方法<a class="anchor" href="#複数の配送方法" aria-label="この見出しへのリンク">#</a></h3>
+<p>1商品に複数の配送方法を設定できます。共通する配送方法が複数ある注文では、最安の送料が最初に選択されますが、購入者が別の配送方法を選ぶこともできます。「最安値の配送方法のみ表示」に変更することも可能です。</p>
+<p>出典：<a href="https://help.thebase.in/hc/ja/articles/34664875406745" target="_blank" rel="noopener noreferrer">BASE公式「複数の配送方法では、いちばん安い送料を適用したい」<span class="external" aria-hidden="true">↗</span></a></p>
+<h3 id="配送日時間帯指定">配送日・時間帯指定<a class="anchor" href="#配送日時間帯指定" aria-label="この見出しへのリンク">#</a></h3>
+<p>「配送日設定 App」を使うと、配送日・配送時間の指定、商品画面のお届け予定日、都道府県別の追加日数などを設定できます。ただし、設定は1ショップ1パターンで、送料詳細設定 Appの配送方法ごとに別の時間帯を出し分けることはできません。</p>
+<ul><li><a href="https://help.thebase.in/hc/ja/articles/8866816057369" target="_blank" rel="noopener noreferrer">BASE公式「配送日・配送時間を指定できるようにする」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://help.thebase.in/hc/ja/articles/360000037061" target="_blank" rel="noopener noreferrer">BASE公式「配送方法ごとに配送日設定をおこなえますか」<span class="external" aria-hidden="true">↗</span></a></li></ul>
+<h3 id="送料詳細設定-appとかんたん発送は別計算">送料詳細設定 Appと「かんたん発送」は別計算<a class="anchor" href="#送料詳細設定-appとかんたん発送は別計算" aria-label="この見出しへのリンク">#</a></h3>
+<p>ここは運用上、特に重要です。</p>
+<blockquote><strong>購入者へ請求する送料と、ショップが配送会社へ払う実費は自動連動しません。</strong></blockquote>
+<p>「送料詳細設定 App」は購入者への請求額を決める機能です。一方、「かんたん発送」でショップ残高から引かれる配送料とは連動していません。箱代などを含めて、実費500円に対して請求送料600円と設定すること自体は可能です。</p>
+<p>また「かんたん発送」は、1注文につき1配送分のみ利用できます。複数個口や分割発送の2便目以降は、別の手段で発送する必要があります。</p>
+<ul><li><a href="https://help.thebase.in/hc/ja/articles/6926377397657" target="_blank" rel="noopener noreferrer">BASE公式「かんたん発送の送料とショップ設定送料が異なっても大丈夫ですか」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://help.thebase.in/hc/ja/articles/6926304645657" target="_blank" rel="noopener noreferrer">BASE公式「複数個口でかんたん発送を利用できますか」<span class="external" aria-hidden="true">↗</span></a></li></ul>
+<h3 id="送料無料の注意点">送料無料の注意点<a class="anchor" href="#送料無料の注意点" aria-label="この見出しへのリンク">#</a></h3>
+<ul><li>合計○円以上で送料無料にできる</li><li>特定商品のみ、送料0円の配送方法を割り当てることもできる</li><li>判定金額はクーポンなどを差し引いた後の注文合計</li><li>海外発送には送料無料条件が適用されない</li><li>送料無料になる注文でも、カートでは「送料別」と表示される場合があり、この表記は変更できない</li><li>最終的な送料は入力内容の確認画面で表示される</li></ul>
+<p>このため「送料無料条件」は◎ですが、「あと○円で送料無料」という進捗表示は×として分けるのが正確です。</p>
+<p>出典：<a href="https://help.thebase.in/hc/ja/articles/900000532563" target="_blank" rel="noopener noreferrer">BASE公式「送料無料は設定できますか」<span class="external" aria-hidden="true">↗</span></a></p>
+<h3 id="baseに向いている送料設計">BASEに向いている送料設計<a class="anchor" href="#baseに向いている送料設計" aria-label="この見出しへのリンク">#</a></h3>
+<p>BASEは、次のような送料設計なら比較的実現しやすいです。</p>
+<ul><li>全国一律または都道府県別</li><li>商品別の配送方法</li><li>個数または重量による60・80・100サイズの切替</li><li>常温・冷蔵・冷凍を別配送方法として請求</li><li>一定金額以上の送料無料</li><li>安い便と通常便など、複数配送方法からの選択</li></ul>
+<p>一方、次の要件は追加システムや運用対応が必要です。</p>
+<ul><li>郵便番号単位の離島・中継料金</li><li>商品の3辺寸法からの自動箱詰め</li><li>複数倉庫の在庫引当と送料最適化</li><li>1注文を複数住所へ分ける</li><li>配送会社の実費とのリアルタイム連動</li><li>配送方法ごとに異なる日時指定</li></ul>
+<hr>
+<h2 id="参考資料">参考資料<a class="anchor" href="#参考資料" aria-label="この見出しへのリンク">#</a></h2>
+<ul><li><a href="https://www.no-trouble.caa.go.jp/what/mailorder/" target="_blank" rel="noopener noreferrer">消費者庁 特定商取引法ガイド「通信販売」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://www.kuronekoyamato.co.jp/ytc/customer/send/services/takkyubin/" target="_blank" rel="noopener noreferrer">ヤマト運輸「宅急便」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://www.kuronekoyamato.co.jp/ytc/customer/send/services/cool/" target="_blank" rel="noopener noreferrer">ヤマト運輸「クール宅急便」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://www.post.japanpost.jp/service/you_pack/index.html" target="_blank" rel="noopener noreferrer">日本郵便「ゆうパック」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://www.sagawa-exp.co.jp/customer/send/service/" target="_blank" rel="noopener noreferrer">佐川急便「配送サービス」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://baymard.com/lists/cart-abandonment-rate" target="_blank" rel="noopener noreferrer">Baymard Institute — Cart Abandonment Statistics<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://help.thebase.in/hc/ja/articles/25734822928281" target="_blank" rel="noopener noreferrer">BASE公式「送料詳細設定 Appで購入者に請求する送料を設定する」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://help.thebase.in/hc/ja/articles/25863173380889" target="_blank" rel="noopener noreferrer">BASE公式「購入された重量に応じた送料を設定する」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://help.thebase.in/hc/ja/articles/25863317151129" target="_blank" rel="noopener noreferrer">BASE公式「購入された個数に応じた送料を設定する」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://help.thebase.in/hc/ja/articles/25863378511257" target="_blank" rel="noopener noreferrer">BASE公式「温度帯ごとに送料を設定する」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://help.thebase.in/hc/ja/articles/900000532563" target="_blank" rel="noopener noreferrer">BASE公式「送料無料は設定できますか」<span class="external" aria-hidden="true">↗</span></a></li></ul>
+<blockquote>注：配送会社のサイズ、重量、料金、追加条件は改定されます。開発時には、利用する法人契約・出荷拠点・商品条件に応じて各社の最新約款と契約運賃表を再確認してください。</blockquote>
+    </main>
+  </div>
+  <footer class="footer">EC送料設計 調査レポート ｜ 2026年6月18日</footer>
+  <script type="module">
+    const progressBar = document.getElementById('progressBar');
+    const updateProgress = () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      progressBar.style.width = (max > 0 ? scrollY / max * 100 : 0) + '%';
+    };
+    addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    const links = [...document.querySelectorAll('.sidebar .toc-link')];
+    const targets = links.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+    const observer = new IntersectionObserver(entries => {
+      const current = entries.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+      if (!current) return;
+      links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + current.target.id));
+    }, { rootMargin: '-15% 0px -75% 0px' });
+    targets.forEach(target => observer.observe(target));
+
+  </script>
+</body>
+</html>
