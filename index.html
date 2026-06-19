@@ -91,6 +91,13 @@
     .status-partial { color: #8a5400; background: #fff0c7; }
     .status-no { color: #9b2c2c; background: #ffe3e3; }
     .status-check { color: #475569; background: #e9eef3; }
+    .comparison-badge { display: inline-block; min-width: 6.5em; padding: .28em .7em; border-radius: 999px; font-size: .76rem; font-weight: 900; text-align: center; white-space: nowrap; }
+    .comparison-recognized { color: #075b54; background: #dff4ee; }
+    .comparison-discussed { color: #8a5400; background: #fff0c7; }
+    .comparison-future { color: #1d4f91; background: #e0edff; }
+    .comparison-warning { color: #9b2c2c; background: #ffe3e3; }
+    .comparison-missing { color: #475569; background: #e9eef3; }
+    .notion-implementation-mark { display: inline-flex; flex-wrap: wrap; gap: .28em; align-items: center; margin-left: .45em; vertical-align: middle; }
     .diagram-wrap { position: relative; overflow-x: auto; margin: 26px 0 34px; padding: 44px 24px 24px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); box-shadow: var(--shadow); }
     .diagram-label { position: absolute; top: 12px; left: 15px; padding: 3px 9px; border-radius: 999px; color: var(--brand-dark); background: var(--brand-soft); font-size: .72rem; font-weight: 900; letter-spacing: .08em; }
     .flow-overview { display: grid; grid-template-columns: minmax(185px, 1fr) 36px minmax(150px, .8fr) 36px minmax(200px, 1.1fr); align-items: center; min-width: 730px; gap: 8px; }
@@ -184,6 +191,16 @@
     <aside class="sidebar" aria-label="目次">
       <p class="toc-title">CONTENTS</p>
       <a class="toc-link level-2" href="#0-先に結論">0. 先に結論</a>
+<a class="toc-link level-2" href="#05-開発側notion資料との認識比較">0.5 開発側Notion資料との認識比較</a>
+<a class="toc-link level-3" href="#この比較の見方">この比較の見方</a>
+<a class="toc-link level-3" href="#先に結論">先に結論</a>
+<a class="toc-link level-3" href="#開発側資料でmvp現行認識を確認できるもの">開発側資料で、MVP・現行認識を確認できるもの</a>
+<a class="toc-link level-3" href="#要望として認識されているがmvp確定ではないもの">要望として認識されているが、MVP確定ではないもの</a>
+<a class="toc-link level-3" href="#v2以降として認識されているもの">v2以降として認識されているもの</a>
+<a class="toc-link level-3" href="#notion資料内で方針が矛盾未確定のもの">Notion資料内で、方針が矛盾・未確定のもの</a>
+<a class="toc-link level-3" href="#今回の調査にはあるがnotion資料に記載が見当たらないもの">今回の調査にはあるが、Notion資料に記載が見当たらないもの</a>
+<a class="toc-link level-3" href="#notion資料の比較表で最新情報と一致していない部分">Notion資料の比較表で、最新情報と一致していない部分</a>
+<a class="toc-link level-3" href="#開発側との打ち合わせで最初に確認する5点">開発側との打ち合わせで、最初に確認する5点</a>
 <a class="toc-link level-2" href="#1-送料を構成する全体像">1. 送料を構成する全体像</a>
 <a class="toc-link level-2" href="#2-消費者のニーズ">2. 消費者のニーズ</a>
 <a class="toc-link level-3" href="#消費者にとって分かりやすい表示順">消費者にとって分かりやすい表示順</a>
@@ -241,6 +258,16 @@
     </aside>
     <main>
       <details class="mobile-toc"><summary>目次を開く</summary><div class="toc-inner"><a class="toc-link level-2" href="#0-先に結論">0. 先に結論</a>
+<a class="toc-link level-2" href="#05-開発側notion資料との認識比較">0.5 開発側Notion資料との認識比較</a>
+<a class="toc-link level-3" href="#この比較の見方">この比較の見方</a>
+<a class="toc-link level-3" href="#先に結論">先に結論</a>
+<a class="toc-link level-3" href="#開発側資料でmvp現行認識を確認できるもの">開発側資料で、MVP・現行認識を確認できるもの</a>
+<a class="toc-link level-3" href="#要望として認識されているがmvp確定ではないもの">要望として認識されているが、MVP確定ではないもの</a>
+<a class="toc-link level-3" href="#v2以降として認識されているもの">v2以降として認識されているもの</a>
+<a class="toc-link level-3" href="#notion資料内で方針が矛盾未確定のもの">Notion資料内で、方針が矛盾・未確定のもの</a>
+<a class="toc-link level-3" href="#今回の調査にはあるがnotion資料に記載が見当たらないもの">今回の調査にはあるが、Notion資料に記載が見当たらないもの</a>
+<a class="toc-link level-3" href="#notion資料の比較表で最新情報と一致していない部分">Notion資料の比較表で、最新情報と一致していない部分</a>
+<a class="toc-link level-3" href="#開発側との打ち合わせで最初に確認する5点">開発側との打ち合わせで、最初に確認する5点</a>
 <a class="toc-link level-2" href="#1-送料を構成する全体像">1. 送料を構成する全体像</a>
 <a class="toc-link level-2" href="#2-消費者のニーズ">2. 消費者のニーズ</a>
 <a class="toc-link level-3" href="#消費者にとって分かりやすい表示順">消費者にとって分かりやすい表示順</a>
@@ -304,7 +331,380 @@
 <blockquote>大事な考え方：<strong>「お客さまに請求する送料」と「配送会社へ払う実費」は別物</strong>として管理する。</blockquote>
 <p>たとえば実費が980円でも、お客さまには全国一律700円、一定額以上は無料、と設定できます。差額は販促費です。これを見える化しないと、売上は増えても利益が残らない状態になりやすいです。</p>
 <hr>
+<h2 id="05-開発側notion資料との認識比較">0.5 開発側Notion資料との認識比較<a class="anchor" href="#05-開発側notion資料との認識比較" aria-label="この見出しへのリンク">#</a></h2>
+<p>比較元：開発要件整理資料 比較日：2026年6月18日</p>
+<h3 id="この比較の見方">この比較の見方<a class="anchor" href="#この比較の見方" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>印</th>
+<th>この資料での意味</th>
+</tr></thead><tbody>
+<tr>
+<td><span class="comparison-badge comparison-recognized">MVP・現行</span></td>
+<td>現行仕様、またはMVPで必要な機能として明記されている</td>
+</tr>
+<tr>
+<td><span class="comparison-badge comparison-discussed">要望・検討</span></td>
+<td>要望や差別化案として記載されているが、MVP確定とは読めない</td>
+</tr>
+<tr>
+<td><span class="comparison-badge comparison-future">v2以降</span></td>
+<td>将来検討、v2以降として明記されている</td>
+</tr>
+<tr>
+<td><span class="comparison-badge comparison-warning">要確認</span></td>
+<td>資料内で矛盾している、または条件がまだ曖昧</td>
+</tr>
+<tr>
+<td><span class="comparison-badge comparison-missing">記載なし</span></td>
+<td>このNotion資料からは、開発側の認識を確認できない</td>
+</tr>
+</tbody></table></div>
+<blockquote><strong>大切な注意：</strong>「記載なし」は、開発側が知らない・やらないと断定する意味ではありません。今回の資料の中では確認できなかった、という意味です。未記載の機能を新しい要件として追加せず、認識差の印だけ付けています。</blockquote>
+<h3 id="先に結論">先に結論<a class="anchor" href="#先に結論" aria-label="この見出しへのリンク">#</a></h3>
+<ul><li>基本的な送料設定と「同じグループでは最高送料を採用する」考え方は、開発側資料にも入っている</li><li>温度帯、離島、置き配、複数住所なども要望として認識されているが、MVPに入るかは確定していない</li><li>重量・サイズ・配送会社API・郵便番号別設定は、v2以降として認識されている</li><li>一番大きな問題は「機能不足」より、<strong>資料内で同じ機能の方針が矛盾している部分</strong></li><li>送料原価の管理、複数倉庫、予約品の分割、設定履歴などは、このNotion資料には見当たらない</li></ul>
+<h3 id="開発側資料でmvp現行認識を確認できるもの">開発側資料で、MVP・現行認識を確認できるもの<a class="anchor" href="#開発側資料でmvp現行認識を確認できるもの" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>機能・考え方</th>
+<th>判定</th>
+<th>Notion資料の記載</th>
+<th>今回の調査との比較</th>
+</tr></thead><tbody>
+<tr>
+<td>全国一律・地域別・都道府県別送料</td>
+<td><span class="comparison-badge comparison-recognized">MVP・現行</span></td>
+<td>「MVPで最低限必要」</td>
+<td>一般ECの最低ラインとして一致</td>
+</tr>
+<tr>
+<td>送料区分テンプレートを5以上にする</td>
+<td><span class="comparison-badge comparison-recognized">MVP・現行</span></td>
+<td>「5以上、できれば無制限」</td>
+<td>ツクツクの上限5を改善する方針として明確</td>
+</tr>
+<tr>
+<td>同じ送料グループでは最高送料を採用</td>
+<td><span class="comparison-badge comparison-recognized">MVP・現行</span></td>
+<td>「1注文→最高送料のみ採用」「同梱可なら最高送料」</td>
+<td>買い手寄りの方針として認識あり。ただし適用単位は後述の確認が必要</td>
+</tr>
+<tr>
+<td>クール便手数料</td>
+<td><span class="comparison-badge comparison-recognized">MVP・現行</span></td>
+<td>「MVPで最低限必要」</td>
+<td>食品ECで必要という認識が一致</td>
+</tr>
+<tr>
+<td>送料無料条件</td>
+<td><span class="comparison-badge comparison-recognized">MVP・現行</span></td>
+<td>「送料無料サービス＋あと○○円表示」</td>
+<td>送料無料機能自体の必要性は一致</td>
+</tr>
+<tr>
+<td>「あと○○円で送料無料」表示</td>
+<td><span class="comparison-badge comparison-recognized">MVP・現行</span></td>
+<td>MVP最低限、追加優先順位5</td>
+<td>購入を後押しする表示として認識あり</td>
+</tr>
+<tr>
+<td>配送業者の選択</td>
+<td><span class="comparison-badge comparison-recognized">MVP・現行</span></td>
+<td>「配送業者の選択（プルダウン）」</td>
+<td>購入者または出店者が方法を選ぶ要件として認識あり</td>
+</tr>
+<tr>
+<td>出荷可能日数の表示</td>
+<td><span class="comparison-badge comparison-recognized">MVP・現行</span></td>
+<td>「MVPで最低限必要」</td>
+<td>お届け予定を見せる要望として一致</td>
+</tr>
+<tr>
+<td>常温・クールなどの商品状態</td>
+<td><span class="comparison-badge comparison-recognized">MVP・現行</span></td>
+<td>「ツクツクは2択の状態をもつ」</td>
+<td>状態が存在する認識はあるが、必要な温度帯数は要確認</td>
+</tr>
+</tbody></table></div>
+<h3 id="要望として認識されているがmvp確定ではないもの">要望として認識されているが、MVP確定ではないもの<a class="anchor" href="#要望として認識されているがmvp確定ではないもの" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>機能・考え方</th>
+<th>判定</th>
+<th>Notion資料の位置づけ</th>
+<th>今回の調査との比較</th>
+</tr></thead><tbody>
+<tr>
+<td>階段式の個数別送料</td>
+<td><span class="comparison-badge comparison-discussed">要望・検討</span></td>
+<td>「プラスαで差別化」</td>
+<td>例：1〜2個、3〜5個で送料を変える要望は認識あり</td>
+</tr>
+<tr>
+<td>温度帯別の同梱判定</td>
+<td><span class="comparison-badge comparison-discussed">要望・検討</span></td>
+<td>追加優先順位2、プラスα</td>
+<td>詳細な計算例まであり、検討は進んでいる</td>
+</tr>
+<tr>
+<td>異なる温度帯は別建てで送料加算</td>
+<td><span class="comparison-badge comparison-discussed">要望・検討</span></td>
+<td>計算順序・ケースB/C</td>
+<td>方針案は明確だが、MVP確定とは書かれていない</td>
+</tr>
+<tr>
+<td>配送業者別の時間帯</td>
+<td><span class="comparison-badge comparison-discussed">要望・検討</span></td>
+<td>追加優先順位3、プラスα</td>
+<td>ヤマト・佐川・日本郵便ごとの区分要望あり</td>
+</tr>
+<tr>
+<td>置き配指定</td>
+<td><span class="comparison-badge comparison-discussed">要望・検討</span></td>
+<td>追加優先順位4、プラスα</td>
+<td>エンドユーザー向け追加機能として認識あり</td>
+</tr>
+<tr>
+<td>1注文を複数住所へ分割</td>
+<td><span class="comparison-badge comparison-discussed">要望・検討</span></td>
+<td>番外、プラスα</td>
+<td>ギフト需要として認識あり。MVP対象かは未確定</td>
+</tr>
+<tr>
+<td>常温商品を冷蔵便へまとめる「昇格同梱」</td>
+<td><span class="comparison-badge comparison-discussed">要望・検討</span></td>
+<td>差別化オプション</td>
+<td>提案として記載あり。通常の同梱ルールとは別に整理が必要</td>
+</tr>
+<tr>
+<td>クール便手数料を独立項目にする</td>
+<td><span class="comparison-badge comparison-discussed">要望・検討</span></td>
+<td>差別化オプション</td>
+<td><code>cool_surcharge</code>案まで記載あり</td>
+</tr>
+<tr>
+<td>送料無料までの関連商品提示</td>
+<td><span class="comparison-badge comparison-discussed">要望・検討</span></td>
+<td>追加優先順位5の補足</td>
+<td>「あと○円」表示より一段上の販促案として認識あり</td>
+</tr>
+</tbody></table></div>
+<h3 id="v2以降として認識されているもの">v2以降として認識されているもの<a class="anchor" href="#v2以降として認識されているもの" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>機能</th>
+<th>判定</th>
+<th>Notion資料の記載</th>
+<th>今回の調査との比較</th>
+</tr></thead><tbody>
+<tr>
+<td>重量別の自動計算</td>
+<td><span class="comparison-badge comparison-future">v2以降</span></td>
+<td>将来検討</td>
+<td>商品DB整備と運用負荷が理由。認識はあるがMVP外</td>
+</tr>
+<tr>
+<td>サイズ別の自動計算</td>
+<td><span class="comparison-badge comparison-future">v2以降</span></td>
+<td>将来検討</td>
+<td>3辺寸法・箱計算は難易度が高いという調査結果と一致</td>
+</tr>
+<tr>
+<td>配送業者APIとの直接連携</td>
+<td><span class="comparison-badge comparison-future">v2以降</span></td>
+<td>将来検討</td>
+<td>開発コストが大きいという認識で一致</td>
+</tr>
+<tr>
+<td>郵便番号単位の細かい送料設定</td>
+<td><span class="comparison-badge comparison-future">v2以降</span></td>
+<td>将来検討</td>
+<td>必要な事業者が限定的としてMVP外</td>
+</tr>
+</tbody></table></div>
+<h3 id="notion資料内で方針が矛盾未確定のもの">Notion資料内で、方針が矛盾・未確定のもの<a class="anchor" href="#notion資料内で方針が矛盾未確定のもの" aria-label="この見出しへのリンク">#</a></h3>
+<div class="table-wrap"><table><thead><tr>
+<th>確認する項目</th>
+<th>判定</th>
+<th>資料内の記載A</th>
+<th>資料内の記載B</th>
+<th>話し合うポイント</th>
+</tr></thead><tbody>
+<tr>
+<td>個別送料加算を残すか、排除するか</td>
+<td><span class="comparison-badge comparison-warning">要確認</span></td>
+<td>「必須：個別送料設定 排除」</td>
+<td>「MVP最低限：個別送料加算（個数×固定）」</td>
+<td>残す・なくすが正反対。どちらが最新方針か確認が必要</td>
+</tr>
+<tr>
+<td>離島料金をMVPに入れるか</td>
+<td><span class="comparison-badge comparison-warning">要確認</span></td>
+<td>「追加優先順位1」「計算順序で郵便番号DB判定」</td>
+<td>「郵便番号レベルはv2以降」</td>
+<td>MVPで離島判定するなら、郵便番号DBもMVP側へ必要になる</td>
+</tr>
+<tr>
+<td>温度帯はいくつ持つか</td>
+<td><span class="comparison-badge comparison-warning">要確認</span></td>
+<td>「ツクツクは2択の状態」</td>
+<td>例では常温・冷蔵・冷凍・同梱不可を使用</td>
+<td>商品データとして何種類を持つか確定が必要</td>
+</tr>
+<tr>
+<td>最高送料を採用する単位</td>
+<td><span class="comparison-badge comparison-warning">要確認</span></td>
+<td>「1注文→最高送料のみ採用」</td>
+<td>「不可ならグループ別に加算」</td>
+<td>注文全体ではなく、同梱できるグループごとの最高送料、と読める。言葉を統一する</td>
+</tr>
+<tr>
+<td>個数計算の内容</td>
+<td><span class="comparison-badge comparison-warning">要確認</span></td>
+<td>「必須：個数の計算ロジック」</td>
+<td>階段式、個数×固定、最高送料が混在</td>
+<td>どの計算方式をMVPに入れるのか未確定</td>
+</tr>
+<tr>
+<td>「同梱が基本」と「送料加算が基本」の関係</td>
+<td><span class="comparison-badge comparison-warning">要確認</span></td>
+<td>見出しは「一般的ECでは同梱が基本」</td>
+<td>本文は「複数商品は送料加算が基本」</td>
+<td>物理的に同じ箱へ入れる話と、送料計算の話を分けて表現する</td>
+</tr>
+</tbody></table></div>
+<h3 id="今回の調査にはあるがnotion資料に記載が見当たらないもの">今回の調査にはあるが、Notion資料に記載が見当たらないもの<a class="anchor" href="#今回の調査にはあるがnotion資料に記載が見当たらないもの" aria-label="この見出しへのリンク">#</a></h3>
+<p>下記は、既存HTMLの調査項目にはありますが、今回のNotion資料からは開発側の認識を確認できません。ここでは追加要件にはせず、「記載なし」の印だけ付けます。</p>
+<div class="table-wrap"><table><thead><tr>
+<th>機能・運用</th>
+<th>判定</th>
+<th>何を決める項目か</th>
+</tr></thead><tbody>
+<tr>
+<td>お客さまへの請求送料と、配送会社へ払う実費の別管理</td>
+<td><span class="comparison-badge comparison-missing">記載なし</span></td>
+<td>送料赤字・販促負担を分析するためのデータ</td>
+</tr>
+<tr>
+<td>注文時に使った料金表・計算結果の保存</td>
+<td><span class="comparison-badge comparison-missing">記載なし</span></td>
+<td>後日料金を変更しても、過去注文の送料を再現するため</td>
+</tr>
+<tr>
+<td>料金表の適用期間・改定履歴・CSV取込</td>
+<td><span class="comparison-badge comparison-missing">記載なし</span></td>
+<td>配送会社の値上げへ安全に対応するため</td>
+</tr>
+<tr>
+<td>複数倉庫・店舗・生産者からの発送</td>
+<td><span class="comparison-badge comparison-missing">記載なし</span></td>
+<td>配送元が違う商品の送料と荷物分割</td>
+</tr>
+<tr>
+<td>予約品・欠品商品を先に送るか、まとめて送るか</td>
+<td><span class="comparison-badge comparison-missing">記載なし</span></td>
+<td>入荷時期が違う商品の分割配送</td>
+</tr>
+<tr>
+<td>一括配送／準備できた物から配送を購入者が選ぶ</td>
+<td><span class="comparison-badge comparison-missing">記載なし</span></td>
+<td>安さと早さを購入者が選択する機能</td>
+</tr>
+<tr>
+<td>箱、緩衝材、保冷剤の重量</td>
+<td><span class="comparison-badge comparison-missing">記載なし</span></td>
+<td>商品重量と梱包後重量の差を扱うため</td>
+</tr>
+<tr>
+<td>管理者の手動変更・承認・変更履歴</td>
+<td><span class="comparison-badge comparison-missing">記載なし</span></td>
+<td>例外注文の送料を安全に直すため</td>
+</tr>
+<tr>
+<td>料金ルールを公開前に試すテスト計算</td>
+<td><span class="comparison-badge comparison-missing">記載なし</span></td>
+<td>設定ミスによる送料不足を防ぐため</td>
+</tr>
+<tr>
+<td>API停止時の予備料金・保存・再計算条件</td>
+<td><span class="comparison-badge comparison-missing">記載なし</span></td>
+<td>外部連携が止まっても購入可能にするため</td>
+</tr>
+<tr>
+<td>返品・交換時の送料と初回送料の返金</td>
+<td><span class="comparison-badge comparison-missing">記載なし</span></td>
+<td>購入後の送料トラブルを防ぐため</td>
+</tr>
+<tr>
+<td>会員ランク・定期便ごとの送料</td>
+<td><span class="comparison-badge comparison-missing">記載なし</span></td>
+<td>VIP送料無料や定期便送料などの販売施策</td>
+</tr>
+<tr>
+<td>越境ECの関税・輸入税・容積重量</td>
+<td><span class="comparison-badge comparison-missing">記載なし</span></td>
+<td>海外配送をおこなう場合の追加要件</td>
+</tr>
+</tbody></table></div>
+<h3 id="notion資料の比較表で最新情報と一致していない部分">Notion資料の比較表で、最新情報と一致していない部分<a class="anchor" href="#notion資料の比較表で最新情報と一致していない部分" aria-label="この見出しへのリンク">#</a></h3>
+<p>既存Notionの「主要ECサービス機能比較表」は、BASE欄の一部が現在のBASE公式仕様と一致していません。開発要件そのものではありませんが、判断材料として使う場合は注意が必要です。</p>
+<div class="table-wrap"><table><thead><tr>
+<th>BASE機能</th>
+<th>Notion資料</th>
+<th>2026年6月のBASE公式確認</th>
+<th>判定</th>
+</tr></thead><tbody>
+<tr>
+<td>重量別送料</td>
+<td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>商品の合計重量で切替可能</td>
+</tr>
+<tr>
+<td>サイズ別送料（3辺合計）</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td>サイズ名は作れるが、3辺を自動計算しない</td>
+</tr>
+<tr>
+<td>階段式の個数別送料</td>
+<td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>合計個数でサイズ・送料を切替可能</td>
+</tr>
+<tr>
+<td>個数×固定送料</td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td>商品数ごとに送料を計算可能</td>
+</tr>
+<tr>
+<td>クール便手数料</td>
+<td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td>温度帯別の配送方法として近似可能</td>
+</tr>
+<tr>
+<td>温度帯別の同梱判定</td>
+<td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td>対象商品と配送方法の事前割当で近似可能</td>
+</tr>
+<tr>
+<td>時間帯指定</td>
+<td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
+<td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
+<td>配送日設定 Appで可能。ただし配送方法別に連動しない</td>
+</tr>
+<tr>
+<td>「あと○円で送料無料」表示</td>
+<td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
+<td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
+<td>送料無料条件は作れるが、残額の自動表示ではない</td>
+</tr>
+</tbody></table></div>
+<h3 id="開発側との打ち合わせで最初に確認する5点">開発側との打ち合わせで、最初に確認する5点<a class="anchor" href="#開発側との打ち合わせで最初に確認する5点" aria-label="この見出しへのリンク">#</a></h3>
+<p>新しい機能提案ではなく、Notion資料内の認識を揃えるための確認事項です。</p>
+<ol><li><strong>個別送料加算は残すのか、排除するのか</strong></li><li><strong>離島自動判定はMVPなのか、v2なのか</strong></li><li><strong>温度帯は、常温・冷蔵・冷凍・同梱不可の4状態でよいか</strong></li><li><strong>最高送料は「注文全体」ではなく「同梱できるグループごと」でよいか</strong></li><li><strong>個数計算は、個数×固定・階段式・1件固定のどこまでをMVPにするか</strong></li></ol>
+<hr>
 <h2 id="1-送料を構成する全体像">1. 送料を構成する全体像<a class="anchor" href="#1-送料を構成する全体像" aria-label="この見出しへのリンク">#</a></h2>
+<blockquote><strong>Notion対応の見方：</strong> 各表・リストの印は、開発側Notion資料で確認できた位置づけです。複数の内容を含む項目には、該当する印を複数表示しています。</blockquote>
 <div class="diagram-wrap">
       <div class="diagram-label">図解</div>
       <div class="flow-overview" role="img" aria-label="注文内容、荷物、配送先、配送条件、販売施策、配送会社の情報から送料を計算し、配送方法、請求送料、原価、お届け予定を出す流れ">
@@ -338,42 +738,42 @@
 <th>よくある例</th>
 </tr></thead><tbody>
 <tr>
-<td>注文金額</td>
+<td>注文金額<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td>税込／税抜、値引き前／後</td>
 <td>10,000円以上で送料無料</td>
 </tr>
 <tr>
-<td>個数</td>
+<td>個数<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td>総個数、商品別個数、箱入数</td>
 <td>2個まで同梱、3個目から2箱</td>
 </tr>
 <tr>
-<td>重量</td>
+<td>重量<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>商品重量、梱包後重量</td>
 <td>5kgまでは800円、10kgまでは1,000円</td>
 </tr>
 <tr>
-<td>サイズ</td>
+<td>サイズ<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>3辺合計、最長辺、容積</td>
 <td>60／80／100サイズで料金変更</td>
 </tr>
 <tr>
-<td>配送先</td>
+<td>配送先<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-warning">Notion：要確認</span></span><!--notion-mark-end--></td>
 <td>都道府県、地域、郵便番号</td>
 <td>北海道・沖縄・離島は別料金</td>
 </tr>
 <tr>
-<td>配送元</td>
+<td>配送元<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>倉庫、店舗、生産者</td>
 <td>2倉庫から出るため送料が2口になる</td>
 </tr>
 <tr>
-<td>商品属性</td>
+<td>商品属性<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>常温・冷蔵・冷凍、危険物、大型</td>
 <td>冷凍品は常温品と別梱包</td>
 </tr>
 <tr>
-<td>配送サービス</td>
+<td>配送サービス<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>速さ、日時指定、置き配、ポスト投函</td>
 <td>安い便／通常便／お急ぎ便から選択</td>
 </tr>
@@ -390,67 +790,67 @@
 </tr></thead><tbody>
 <tr>
 <td><span class="priority-stars priority-3" title="最優先" aria-label="最優先">★★★</span></td>
-<td>最終金額を早く知りたい</td>
+<td>最終金額を早く知りたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>決済直前に送料が増えるのは困る</td>
 <td>商品ページ・カートで郵便番号から概算表示</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-3" title="最優先" aria-label="最優先">★★★</span></td>
-<td>送料を安くしたい</td>
+<td>送料を安くしたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>送料無料、まとめ買い、ポスト投函を選びたい</td>
 <td>送料無料条件、安価な配送方法、まとめ配送</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-3" title="最優先" aria-label="最優先">★★★</span></td>
-<td>理由が分かる公平な料金</td>
+<td>理由が分かる公平な料金<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td>同じ商品なのに送料が高い理由を知りたい</td>
 <td>地域・温度帯・複数口などの内訳表示</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
-<td>速さを選びたい</td>
+<td>速さを選びたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>急ぎなら追加料金を払ってもよい</td>
 <td>通常便／お急ぎ便の比較表示</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
-<td>受取方法を選びたい</td>
+<td>受取方法を選びたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>日時指定、置き配、店舗・ロッカー受取</td>
 <td>配送サービス別の受取選択</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
-<td>受取日を知りたい</td>
+<td>受取日を知りたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>「最短○日」だけでなく、自分の住所への予定日が知りたい</td>
 <td>在庫、出荷日、配送日数を合わせて計算</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
-<td>荷物をまとめたい／分けたい</td>
+<td>荷物をまとめたい／分けたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>ゴミを減らしたい、在庫品だけ先に欲しい</td>
 <td>一括配送／準備できた物から配送を選択</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-1" title="あると良い" aria-label="あると良い">★</span></td>
-<td>返品時の扱いを知りたい</td>
+<td>返品時の扱いを知りたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>返品送料、初回送料の返金有無を知りたい</td>
 <td>返品ポリシーと注文単位の送料記録</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-1" title="あると良い" aria-label="あると良い">★</span></td>
-<td>会員特典を使いたい</td>
+<td>会員特典を使いたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>会員は送料無料、定期便は割安がよい</td>
 <td>会員ランク・定期購入用の送料ルール</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-1" title="あると良い" aria-label="あると良い">★</span></td>
-<td>環境負荷を減らしたい</td>
+<td>環境負荷を減らしたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>過剰包装や分割配送を避けたい</td>
 <td>まとめ配送、簡易包装、配送回数の表示</td>
 </tr>
 </tbody></table></div>
 <h3 id="消費者にとって分かりやすい表示順">消費者にとって分かりやすい表示順<a class="anchor" href="#消費者にとって分かりやすい表示順" aria-label="この見出しへのリンク">#</a></h3>
-<ol><li>商品ページ：「この商品は通常便」「お届け先を入れると送料を確認できます」</li><li>カート：「現在の送料」「あと○円で送料無料」「2便に分かれます」</li><li>購入手続き：「配送方法・到着予定日・送料」を横並びで比較</li><li>注文確定前：「商品代、値引き、送料、手数料、税、総額」を再確認</li><li>注文後：「何が、どの便で、いつ届くか」を荷物単位で表示</li></ol>
+<ol><li>商品ページ：「この商品は通常便」「お届け先を入れると送料を確認できます」<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>カート：「現在の送料」「あと○円で送料無料」「2便に分かれます」<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></li><li>購入手続き：「配送方法・到着予定日・送料」を横並びで比較<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>注文確定前：「商品代、値引き、送料、手数料、税、総額」を再確認<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>注文後：「何が、どの便で、いつ届くか」を荷物単位で表示<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li></ol>
 <hr>
 <h2 id="3-事業者のニーズ">3. 事業者のニーズ<a class="anchor" href="#3-事業者のニーズ" aria-label="この見出しへのリンク">#</a></h2>
 <p>優先度：<strong>★★★＝最優先／★★＝重要／★＝あると良い</strong></p>
@@ -462,67 +862,67 @@
 </tr></thead><tbody>
 <tr>
 <td><span class="priority-stars priority-3" title="最優先" aria-label="最優先">★★★</span></td>
-<td>送料赤字を防ぎたい</td>
+<td>送料赤字を防ぎたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>遠方・大型・冷凍の注文ほど赤字になる</td>
 <td>請求送料と実費原価を別々に保存・比較</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-3" title="最優先" aria-label="最優先">★★★</span></td>
-<td>計算ミスをなくしたい</td>
+<td>計算ミスをなくしたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>出荷時に箱が大きくなり追加費用が発生</td>
 <td>商品の重量・寸法・温度帯・同梱条件を登録</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-3" title="最優先" aria-label="最優先">★★★</span></td>
-<td>現場を簡単にしたい</td>
+<td>現場を簡単にしたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>スタッフが毎回、配送会社と箱を判断する</td>
 <td>自動振分けと例外時の手動変更</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-3" title="最優先" aria-label="最優先">★★★</span></td>
-<td>法令に沿って明確に表示したい</td>
+<td>法令に沿って明確に表示したい<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>送料が分かりにくく、苦情や離脱が増える</td>
 <td>広告・カート・最終確認画面で料金を明示</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
-<td>購入率を上げたい</td>
+<td>購入率を上げたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td>送料が最後まで不明で、カート離脱が増える</td>
 <td>早期見積り、送料無料までの残額表示</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
-<td>客単価を上げたい</td>
+<td>客単価を上げたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>無料条件を低くしすぎて利益が減る</td>
 <td>利益を見ながら送料無料基準を試算</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
-<td>配送会社を使い分けたい</td>
+<td>配送会社を使い分けたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>すべて同じ便にして原価が高くなる</td>
 <td>サイズ・地域・納期ごとの最安／最適便選択</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
-<td>複数倉庫・産直に対応したい</td>
+<td>複数倉庫・産直に対応したい<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>送料を1口分しか回収できない</td>
 <td>配送元ごとの分割計算、同梱不可の制御</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-2" title="重要" aria-label="重要">★★</span></td>
-<td>契約運賃の改定に対応したい</td>
+<td>契約運賃の改定に対応したい<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>料金改定のたびに改修が必要</td>
 <td>期間つき料金表、CSV取込、履歴管理</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-1" title="あると良い" aria-label="あると良い">★</span></td>
-<td>問い合わせを減らしたい</td>
+<td>問い合わせを減らしたい<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>「なぜ送料が2回？」が増える</td>
 <td>荷物単位の内訳と理由を表示</td>
 </tr>
 <tr>
 <td><span class="priority-stars priority-1" title="あると良い" aria-label="あると良い">★</span></td>
-<td>分析したい</td>
+<td>分析したい<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>送料無料施策が儲かっているか分からない</td>
 <td>送料売上、実費、差額、再配送、地域別分析</td>
 </tr>
@@ -540,35 +940,35 @@
 <th>難易度</th>
 </tr></thead><tbody>
 <tr>
-<td>1注文一律</td>
+<td>1注文一律<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>何個でも700円</td>
 <td>小型・軽量で差が小さい商品</td>
 <td>大量注文で赤字になる可能性</td>
 <td>★☆☆☆☆</td>
 </tr>
 <tr>
-<td>1個ごと加算</td>
+<td>1個ごと加算<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>1個300円 × 個数</td>
 <td>産直、個別梱包商品</td>
 <td>まとめ買いの魅力が弱くなる</td>
 <td>★★☆☆☆</td>
 </tr>
 <tr>
-<td>追加分だけ加算</td>
+<td>追加分だけ加算<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td>1個700円、2個目以降+200円</td>
 <td>同梱で少しずつ箱が大きくなる商品</td>
 <td>商品の組合せで誤差が出る</td>
 <td>★★☆☆☆</td>
 </tr>
 <tr>
-<td>箱入数</td>
+<td>箱入数<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td>6個まで1箱、7個から2箱</td>
 <td>飲料、米、瓶、セット商品</td>
 <td>異なる商品の混載ルールが必要</td>
 <td>★★★☆☆</td>
 </tr>
 <tr>
-<td>個数別の料金表</td>
+<td>個数別の料金表<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>1〜2個700円、3〜5個900円</td>
 <td>寸法がほぼ同じ商品</td>
 <td>SKUごとの「送料計算個数」が必要な場合あり</td>
@@ -583,22 +983,22 @@
 <th>注意点</th>
 </tr></thead><tbody>
 <tr>
-<td>商品本体</td>
+<td>商品本体<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>必須</td>
 <td>バリエーションごとに重量が違う場合がある</td>
 </tr>
 <tr>
-<td>外箱</td>
+<td>外箱<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>必須に近い</td>
 <td>箱サイズごとに重量を登録</td>
 </tr>
 <tr>
-<td>緩衝材・保冷材</td>
+<td>緩衝材・保冷材<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>冷蔵・壊れ物で重要</td>
 <td>季節により保冷剤量が変わることもある</td>
 </tr>
 <tr>
-<td>同梱物</td>
+<td>同梱物<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td>場合による</td>
 <td>カタログや特典が重い場合は無視できない</td>
 </tr>
@@ -623,19 +1023,19 @@
 <th>おすすめ場面</th>
 </tr></thead><tbody>
 <tr>
-<td>商品ごとに発送サイズを固定</td>
+<td>商品ごとに発送サイズを固定<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>中</td>
 <td>小</td>
 <td>SKUが少ない、同梱が少ない</td>
 </tr>
 <tr>
-<td>箱入数・送料ポイントで近似</td>
+<td>箱入数・送料ポイントで近似<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td>中〜高</td>
 <td>中</td>
 <td>食品、化粧品、雑貨など一般的なEC</td>
 </tr>
 <tr>
-<td>3次元の箱詰め計算</td>
+<td>3次元の箱詰め計算<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>高くできる</td>
 <td>大</td>
 <td>SKU・箱・組合せが多く、送料差が大きい</td>
@@ -649,67 +1049,67 @@
 <th>例</th>
 </tr></thead><tbody>
 <tr>
-<td>地域</td>
+<td>地域<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-warning">Notion：要確認</span></span><!--notion-mark-end--></td>
 <td>都道府県だけでなく郵便番号で例外判定</td>
 <td>離島、中継料金、山間部</td>
 </tr>
 <tr>
-<td>温度帯</td>
+<td>温度帯<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td>常温・冷蔵・冷凍を分ける</td>
 <td>冷蔵と冷凍を同梱できない</td>
 </tr>
 <tr>
-<td>配送元</td>
+<td>配送元<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>倉庫、生産者、店舗ごとに送料を計算</td>
 <td>産直モール、ドロップシッピング</td>
 </tr>
 <tr>
-<td>発売時期</td>
+<td>発売時期<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>予約品と通常品を分ける</td>
 <td>予約商品だけ後日発送</td>
 </tr>
 <tr>
-<td>入荷時期</td>
+<td>入荷時期<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>欠品商品を待つか、先に送るか</td>
 <td>一括配送／分割配送</td>
 </tr>
 <tr>
-<td>商品制約</td>
+<td>商品制約<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td>同梱不可、天地無用、危険物、壊れ物</td>
 <td>花、酒、リチウム電池、大型品</td>
 </tr>
 <tr>
-<td>配送方法</td>
+<td>配送方法<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>ポスト投函、宅配、チャーター便</td>
 <td>厚み制限を超えたら宅配便へ切替</td>
 </tr>
 <tr>
-<td>決済</td>
+<td>決済<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>代引き、後払いなどの手数料</td>
 <td>送料とは別の手数料として表示</td>
 </tr>
 <tr>
-<td>会員</td>
+<td>会員<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>ランク・法人・卸先ごとの料金</td>
 <td>VIP送料無料、卸は実費</td>
 </tr>
 <tr>
-<td>定期便</td>
+<td>定期便<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>毎回固定、回数で無料、まとめ発送</td>
 <td>2か月分まとめて配送</td>
 </tr>
 <tr>
-<td>キャンペーン</td>
+<td>キャンペーン<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>商品限定、地域限定、期間限定</td>
 <td>対象商品を含むと送料無料</td>
 </tr>
 <tr>
-<td>返品・交換</td>
+<td>返品・交換<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>初回送料、返送料、再送料の負担</td>
 <td>不良品は事業者負担、都合返品は購入者負担</td>
 </tr>
 <tr>
-<td>海外</td>
+<td>海外<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>容積重量、関税、輸入税、禁制品</td>
 <td>DDP／DAP、通関手数料</td>
 </tr>
@@ -725,27 +1125,27 @@
 <th>内容</th>
 </tr></thead><tbody>
 <tr>
-<td>★☆☆☆☆</td>
+<td>★☆☆☆☆<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>とても低い</td>
 <td>管理画面の設定だけでも実現しやすい</td>
 </tr>
 <tr>
-<td>★★☆☆☆</td>
+<td>★★☆☆☆<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>低い</td>
 <td>単独条件の料金表で実現できる</td>
 </tr>
 <tr>
-<td>★★★☆☆</td>
+<td>★★★☆☆<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>中</td>
 <td>複数条件、分割、例外処理が必要</td>
 </tr>
 <tr>
-<td>★★★★☆</td>
+<td>★★★★☆<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>高い</td>
 <td>外部API、箱計算、管理画面、障害対策が必要</td>
 </tr>
 <tr>
-<td>★★★★★</td>
+<td>★★★★★<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>とても高い</td>
 <td>複数倉庫・複数口・最適化を同時に扱う</td>
 </tr>
@@ -760,7 +1160,7 @@
 <th>主な落とし穴</th>
 </tr></thead><tbody>
 <tr>
-<td>全国一律</td>
+<td>全国一律<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
@@ -768,7 +1168,7 @@
 <td>遠方・大型で赤字</td>
 </tr>
 <tr>
-<td>完全送料無料</td>
+<td>完全送料無料<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
@@ -776,7 +1176,7 @@
 <td>商品価格への転嫁と利益管理が必要</td>
 </tr>
 <tr>
-<td>注文金額で無料</td>
+<td>注文金額で無料<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td>○</td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
@@ -784,7 +1184,7 @@
 <td>値引き前後・税込税抜の基準が曖昧になりやすい</td>
 </tr>
 <tr>
-<td>地域別</td>
+<td>地域別<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-warning">Notion：要確認</span></span><!--notion-mark-end--></td>
 <td>○</td>
 <td>○</td>
 <td>○</td>
@@ -792,7 +1192,7 @@
 <td>離島を都道府県だけで判定できない</td>
 </tr>
 <tr>
-<td>個数別</td>
+<td>個数別<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td>○</td>
 <td>○</td>
 <td>○</td>
@@ -800,7 +1200,7 @@
 <td>異なる商品の組合せ</td>
 </tr>
 <tr>
-<td>重量別</td>
+<td>重量別<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>○</td>
 <td>○〜◎</td>
 <td>○</td>
@@ -808,7 +1208,7 @@
 <td>梱包材重量、登録漏れ、上限超過</td>
 </tr>
 <tr>
-<td>発送サイズ固定</td>
+<td>発送サイズ固定<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>○</td>
 <td>○</td>
 <td>○</td>
@@ -816,7 +1216,7 @@
 <td>複数商品を同梱した時の扱い</td>
 </tr>
 <tr>
-<td>箱入数・送料ポイント</td>
+<td>箱入数・送料ポイント<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td>○</td>
 <td>○〜◎</td>
 <td>○</td>
@@ -824,7 +1224,7 @@
 <td>ポイント調整の運用が必要</td>
 </tr>
 <tr>
-<td>温度帯別</td>
+<td>温度帯別<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td>○</td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
@@ -832,7 +1232,7 @@
 <td>常温・冷蔵・冷凍の分割と上限条件</td>
 </tr>
 <tr>
-<td>配送元別</td>
+<td>配送元別<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
@@ -840,7 +1240,7 @@
 <td>送料が複数になる理由の説明</td>
 </tr>
 <tr>
-<td>配送会社APIの実時間見積り</td>
+<td>配送会社APIの実時間見積り<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>○</td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td>○</td>
@@ -848,7 +1248,7 @@
 <td>API停止、応答速度、契約運賃、料金変動</td>
 </tr>
 <tr>
-<td>3次元箱詰め＋最適便</td>
+<td>3次元箱詰め＋最適便<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td>○</td>
@@ -856,7 +1256,7 @@
 <td>計算量、梱包現場との差、説明しにくさ</td>
 </tr>
 <tr>
-<td>複数倉庫の在庫引当＋最適配送</td>
+<td>複数倉庫の在庫引当＋最適配送<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>○</td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
@@ -908,7 +1308,7 @@
       </div>
     </div>
 <h3 id="重要な計算順序">重要な計算順序<a class="anchor" href="#重要な計算順序" aria-label="この見出しへのリンク">#</a></h3>
-<ol><li>先に「何個口になるか」を決める</li><li>その後で各荷物の実費を出す</li><li>最後に送料無料や会員割引を適用する</li><li>注文時の料金表・計算理由を保存する</li></ol>
+<ol><li>先に「何個口になるか」を決める<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>その後で各荷物の実費を出す<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>最後に送料無料や会員割引を適用する<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>注文時の料金表・計算理由を保存する<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li></ol>
 <p>料金表を後日変更しても、過去注文の送料が変わらないようにするためです。</p>
 <hr>
 <h2 id="8-開発に必要なデータ">8. 開発に必要なデータ<a class="anchor" href="#8-開発に必要なデータ" aria-label="この見出しへのリンク">#</a></h2>
@@ -919,47 +1319,47 @@
 <th>用途</th>
 </tr></thead><tbody>
 <tr>
-<td>商品重量</td>
+<td>商品重量<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>高</td>
 <td>重量帯・配送上限の判定</td>
 </tr>
 <tr>
-<td>縦・横・高さ</td>
+<td>縦・横・高さ<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>中〜高</td>
 <td>箱・サイズの推定</td>
 </tr>
 <tr>
-<td>送料区分</td>
+<td>送料区分<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-warning">Notion：要確認</span></span><!--notion-mark-end--></td>
 <td>高</td>
 <td>小型、通常、大型、個別送料など</td>
 </tr>
 <tr>
-<td>温度帯</td>
+<td>温度帯<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td>食品では高</td>
 <td>常温・冷蔵・冷凍の分割</td>
 </tr>
 <tr>
-<td>配送元</td>
+<td>配送元<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>複数拠点では高</td>
 <td>倉庫・生産者ごとの分割</td>
 </tr>
 <tr>
-<td>同梱可否</td>
+<td>同梱可否<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td>高</td>
 <td>個別発送、危険物、壊れ物への対応</td>
 </tr>
 <tr>
-<td>1箱の上限数</td>
+<td>1箱の上限数<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td>商材次第</td>
 <td>ケース・箱入数計算</td>
 </tr>
 <tr>
-<td>回転・積重ね可否</td>
+<td>回転・積重ね可否<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>高精度計算時</td>
 <td>箱詰め計算</td>
 </tr>
 <tr>
-<td>出荷までの日数</td>
+<td>出荷までの日数<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td>高</td>
 <td>お届け予定日の計算</td>
 </tr>
@@ -970,47 +1370,47 @@
 <th>例</th>
 </tr></thead><tbody>
 <tr>
-<td>適用期間</td>
+<td>適用期間<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>2026-07-01〜2027-03-31</td>
 </tr>
 <tr>
-<td>配送会社・サービス</td>
+<td>配送会社・サービス<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>ヤマト宅急便、ゆうパック、ポスト投函便</td>
 </tr>
 <tr>
-<td>出荷地域・配送地域</td>
+<td>出荷地域・配送地域<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>関東発→九州着</td>
 </tr>
 <tr>
-<td>サイズ・重量帯</td>
+<td>サイズ・重量帯<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>80サイズ、5kg以下</td>
 </tr>
 <tr>
-<td>基本運賃・契約運賃</td>
+<td>基本運賃・契約運賃<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>事業者が実際に払う予定額</td>
 </tr>
 <tr>
-<td>お客さまへの請求額</td>
+<td>お客さまへの請求額<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>一律料金や販促適用後の額</td>
 </tr>
 <tr>
-<td>追加料金</td>
+<td>追加料金<span class="notion-implementation-mark"><span class="comparison-badge comparison-warning">Notion：要確認</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>冷蔵、冷凍、離島、代引き、大型</td>
 </tr>
 <tr>
-<td>優先順位・併用可否</td>
+<td>優先順位・併用可否<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>会員無料とキャンペーンを併用するか</td>
 </tr>
 </tbody></table></div>
 <hr>
 <h2 id="9-システム設計で外せない機能">9. システム設計で外せない機能<a class="anchor" href="#9-システム設計で外せない機能" aria-label="この見出しへのリンク">#</a></h2>
 <h3 id="最低限必要">最低限必要<a class="anchor" href="#最低限必要" aria-label="この見出しへのリンク">#</a></h3>
-<ul><li>料金表をコード修正なしで変更できる管理画面</li><li>商品の重量、送料区分、温度帯、配送元</li><li>地域・金額・個数・重量による条件設定</li><li>送料無料条件と対象外商品の設定</li><li>送料内訳と「なぜこの金額か」の表示</li><li>注文時の計算結果・料金表版の保存</li><li>管理者による送料の手動変更と変更履歴</li><li>ルール変更前に試せるテスト計算</li></ul>
+<ul><li>料金表をコード修正なしで変更できる管理画面<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>商品の重量、送料区分、温度帯、配送元<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>地域・金額・個数・重量による条件設定<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></li><li>送料無料条件と対象外商品の設定<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></li><li>送料内訳と「なぜこの金額か」の表示<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>注文時の計算結果・料金表版の保存<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>管理者による送料の手動変更と変更履歴<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>ルール変更前に試せるテスト計算<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li></ul>
 <h3 id="成長後に必要">成長後に必要<a class="anchor" href="#成長後に必要" aria-label="この見出しへのリンク">#</a></h3>
-<ul><li>郵便番号単位の離島・中継料金判定</li><li>複数倉庫・複数温度帯・予約品の分割</li><li>配送会社API、送り状、追跡番号との連携</li><li>箱の自動選択</li><li>契約運賃CSVの一括取込</li><li>送料差額と利益の分析</li><li>APIが止まった時の代替料金</li></ul>
+<ul><li>郵便番号単位の離島・中継料金判定<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-warning">Notion：要確認</span></span><!--notion-mark-end--></li><li>複数倉庫・複数温度帯・予約品の分割<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>配送会社API、送り状、追跡番号との連携<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>箱の自動選択<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>契約運賃CSVの一括取込<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>送料差額と利益の分析<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>APIが止まった時の代替料金<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li></ul>
 <h3 id="api連携時の安全策">API連携時の安全策<a class="anchor" href="#api連携時の安全策" aria-label="この見出しへのリンク">#</a></h3>
 <p>配送会社APIを呼ぶ場合も、APIが遅い・止まる・料金が返らない場合に購入できなくならない設計が必要です。</p>
-<ol><li>数秒で応答しなければ代替の料金表を使う</li><li>同じ条件の見積りを短時間保存して、毎回呼ばない</li><li>住所変更・商品変更時だけ再計算する</li><li>注文時の回答を保存する</li><li>出荷時の実費との差を後から確認する</li></ol>
+<ol><li>数秒で応答しなければ代替の料金表を使う<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>同じ条件の見積りを短時間保存して、毎回呼ばない<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>住所変更・商品変更時だけ再計算する<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>注文時の回答を保存する<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>出荷時の実費との差を後から確認する<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li></ol>
 <hr>
 <h2 id="10-消費者と事業者の希望がぶつかる場面">10. 消費者と事業者の希望がぶつかる場面<a class="anchor" href="#10-消費者と事業者の希望がぶつかる場面" aria-label="この見出しへのリンク">#</a></h2>
 <div class="table-wrap"><table><thead><tr>
@@ -1020,31 +1420,31 @@
 <th>両方を幸せにする案</th>
 </tr></thead><tbody>
 <tr>
-<td>送料</td>
+<td>送料<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>できるだけ無料</td>
 <td>赤字にしたくない</td>
 <td>粗利から逆算した無料基準＋残額表示</td>
 </tr>
 <tr>
-<td>表示</td>
+<td>表示<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>単純で分かりやすく</td>
 <td>原価どおり細かく請求</td>
 <td>最初は概算、カートでは理由つきの確定額</td>
 </tr>
 <tr>
-<td>到着</td>
+<td>到着<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>早く欲しい</td>
 <td>まとめて安く送りたい</td>
 <td>「まとめて安い」「分けて早い」を選べる</td>
 </tr>
 <tr>
-<td>配送会社</td>
+<td>配送会社<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>好きな会社を選びたい</td>
 <td>最安の会社を使いたい</td>
 <td>標準便は自動、お急ぎ・指定は追加料金</td>
 </tr>
 <tr>
-<td>梱包</td>
+<td>梱包<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>小さく、ゴミを減らしたい</td>
 <td>破損を減らしたい</td>
 <td>簡易包装／しっかり包装を商材に応じて選択</td>
@@ -1055,13 +1455,13 @@
 <p>いきなり完全自動を目指すと、商品データ整備と例外処理が重くなります。まず「赤字と説明不足を防ぐ」ところから始めるのが現実的です。</p>
 <h3 id="第1段階まず安心して販売できる形">第1段階：まず安心して販売できる形<a class="anchor" href="#第1段階まず安心して販売できる形" aria-label="この見出しへのリンク">#</a></h3>
 <p>難易度：★★★☆☆</p>
-<ul><li>地域別送料</li><li>注文金額による送料無料</li><li>商品ごとの送料区分</li><li>温度帯・配送元・同梱不可による分割</li><li>カートで送料と分割理由を表示</li><li>請求送料と想定原価を別保存</li></ul>
+<ul><li>地域別送料　<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></li><li>注文金額による送料無料　<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></li><li>商品ごとの送料区分　<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></li><li>温度帯・配送元・同梱不可による分割　<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span>（温度帯・同梱不可の部分）</span><!--notion-mark-end--></li><li>カートで送料と分割理由を表示<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>請求送料と想定原価を別保存<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li></ul>
 <h3 id="第2段階精度と選択肢を増やす">第2段階：精度と選択肢を増やす<a class="anchor" href="#第2段階精度と選択肢を増やす" aria-label="この見出しへのリンク">#</a></h3>
 <p>難易度：★★★★☆</p>
-<ul><li>個数・重量・箱入数でサイズを推定</li><li>安い便／通常便／お急ぎ便</li><li>郵便番号による例外地域</li><li>お届け予定日、日時指定</li><li>契約運賃CSVと料金表の期間管理</li></ul>
+<ul><li>個数・重量・箱入数でサイズを推定　<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span>（個数）</span><!--notion-mark-end--><span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span>（重量・サイズ）</span><!--notion-mark-end--></li><li>安い便／通常便／お急ぎ便<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>郵便番号による例外地域　<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></li><li>お届け予定日、日時指定　<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span>（出荷可能日数）</span><!--notion-mark-end--><span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span>（時間帯指定）</span><!--notion-mark-end--></li><li>契約運賃CSVと料金表の期間管理<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li></ul>
 <h3 id="第3段階物流全体を最適化する">第3段階：物流全体を最適化する<a class="anchor" href="#第3段階物流全体を最適化する" aria-label="この見出しへのリンク">#</a></h3>
 <p>難易度：★★★★★</p>
-<ul><li>配送会社APIによる見積り</li><li>箱詰め最適化</li><li>複数倉庫の在庫引当と送料最適化</li><li>分割／一括配送の顧客選択</li><li>実費差額・利益・配送品質を使った自動改善</li></ul>
+<ul><li>配送会社APIによる見積り　<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></li><li>箱詰め最適化<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>複数倉庫の在庫引当と送料最適化<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>分割／一括配送の顧客選択<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>実費差額・利益・配送品質を使った自動改善<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li></ul>
 <hr>
 <h2 id="12-実装前に決めること--やさしい質問と回答例">12. 実装前に決めること ― やさしい質問と回答例<a class="anchor" href="#12-実装前に決めること--やさしい質問と回答例" aria-label="この見出しへのリンク">#</a></h2>
 <p>送料の仕組みを作る前に、ショップ側で決めておく内容です。難しい言葉で考える必要はありません。まずは、下の質問に普段の言葉で答えられれば大丈夫です。</p>
@@ -1072,31 +1472,31 @@
 <th>回答例</th>
 </tr></thead><tbody>
 <tr>
-<td>① 送料は全国同じにする？地域で変える？</td>
+<td>① 送料は全国同じにする？地域で変える？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>本州800円、北海道1,300円、沖縄1,500円</td>
 </tr>
 <tr>
-<td>② いくら買ったら送料無料にする？</td>
+<td>② いくら買ったら送料無料にする？<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td>商品合計10,000円以上で送料無料</td>
 </tr>
 <tr>
-<td>③ 商品が増えたら送料をどう変える？</td>
+<td>③ 商品が増えたら送料をどう変える？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>2個まで800円、3個以上は1,100円</td>
 </tr>
 <tr>
-<td>④ 一緒の箱に入れられない商品はある？</td>
+<td>④ 一緒の箱に入れられない商品はある？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>常温と冷凍は別の箱・別の送料にする</td>
 </tr>
 <tr>
-<td>⑤ 予約商品と通常商品を一緒に買ったら？</td>
+<td>⑤ 予約商品と通常商品を一緒に買ったら？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>通常商品を先に送り、予約商品は後から送る</td>
 </tr>
 <tr>
-<td>⑥ お客さまへ、いつ送料を見せる？</td>
+<td>⑥ お客さまへ、いつ送料を見せる？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>カートに入れた時点で送料を表示する</td>
 </tr>
 <tr>
-<td>⑦ 送料を計算できない注文が来たら？</td>
+<td>⑦ 送料を計算できない注文が来たら？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>その場では注文させず、問い合わせ案内を出す</td>
 </tr>
 </tbody></table></div>
@@ -1108,27 +1508,27 @@
 <th>これを決める理由</th>
 </tr></thead><tbody>
 <tr>
-<td>送料を分かりやすくする？実費に近くする？</td>
+<td>送料を分かりやすくする？実費に近くする？<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>分かりやすさ重視なら全国一律800円。実費重視なら地域別に700〜1,500円</td>
 <td>全国一律は簡単ですが、遠い地域ではショップの負担が増えます</td>
 </tr>
 <tr>
-<td>いくら以上買ったら送料無料にする？</td>
+<td>いくら以上買ったら送料無料にする？<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td>10,000円以上で送料無料</td>
 <td>まとめ買いを増やせます。ただし送料はショップ負担になります</td>
 </tr>
 <tr>
-<td>北海道・沖縄・離島も送料無料にする？</td>
+<td>北海道・沖縄・離島も送料無料にする？<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-warning">Notion：要確認</span></span><!--notion-mark-end--></td>
 <td>本州は無料、北海道・沖縄は500円だけ追加</td>
 <td>遠い地域まで完全無料にすると、注文によって赤字になることがあります</td>
 </tr>
 <tr>
-<td>冷蔵・冷凍・大型商品も送料無料にする？</td>
+<td>冷蔵・冷凍・大型商品も送料無料にする？<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td>通常商品は無料、冷凍便は別途300円</td>
 <td>特別な配送は追加料金がかかるためです</td>
 </tr>
 <tr>
-<td>送料をショップが少し負担してもよい？</td>
+<td>送料をショップが少し負担してもよい？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>実際の送料1,000円、お客さまから800円、差額200円はショップ負担</td>
 <td>送料を安く見せる代わりに、1注文でいくら負担するか決めておきます</td>
 </tr>
@@ -1145,32 +1545,32 @@
 <th>これを決める理由</th>
 </tr></thead><tbody>
 <tr>
-<td>商品の重さは分かる？</td>
+<td>商品の重さは分かる？<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>コーヒー1袋250g、瓶1本700g</td>
 <td>重量で送料を変える場合に必要です</td>
 </tr>
 <tr>
-<td>商品の大きさは分かる？</td>
+<td>商品の大きさは分かる？<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>縦20cm・横15cm・高さ8cm</td>
 <td>60サイズか80サイズかを考える材料になります</td>
 </tr>
 <tr>
-<td>1つの箱に何個まで入る？</td>
+<td>1つの箱に何個まで入る？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>瓶は6本まで1箱、7本から2箱</td>
 <td>箱が増えるタイミングで送料も変わるためです</td>
 </tr>
 <tr>
-<td>一緒に入れてはいけない商品はある？</td>
+<td>一緒に入れてはいけない商品はある？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>常温と冷凍、食品と割れ物は別箱</td>
 <td>別箱になると、送料も2件分になる場合があります</td>
 </tr>
 <tr>
-<td>商品はどこから発送する？</td>
+<td>商品はどこから発送する？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>全商品を沖縄倉庫から発送／生産者ごとに発送</td>
 <td>発送元が違う商品は、同じ箱にまとめられません</td>
 </tr>
 <tr>
-<td>箱や保冷剤の重さも送料に入れる？</td>
+<td>箱や保冷剤の重さも送料に入れる？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>商品4.8kg＋箱・保冷剤0.5kg＝5.3kg</td>
 <td>商品だけなら5kg以下でも、梱包後は5kgを超えることがあります</td>
 </tr>
@@ -1187,28 +1587,28 @@
 <th>選択肢B</th>
 </tr></thead><tbody>
 <tr>
-<td>予約商品と通常商品を一緒に買ったら？</td>
+<td>予約商品と通常商品を一緒に買ったら？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>全部揃ってから1回で送る。送料は安いが、通常商品も遅くなる</td>
 <td>通常商品を先に送る。早いが、送料が2回分かかる</td>
 </tr>
 <tr>
-<td>1商品だけ欠品していたら？</td>
+<td>1商品だけ欠品していたら？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>入荷まで全部待つ</td>
 <td>在庫がある商品だけ先に送る</td>
 </tr>
 <tr>
-<td>発送元が2か所になったら？</td>
+<td>発送元が2か所になったら？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>送料を1件分だけ請求し、差額はショップ負担</td>
 <td>発送元ごとに送料を請求する</td>
 </tr>
 <tr>
-<td>常温と冷凍を一緒に買ったら？</td>
+<td>常温と冷凍を一緒に買ったら？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>冷凍便にまとめる。商品によっては不可</td>
 <td>常温便と冷凍便に分け、送料を2件分にする</td>
 </tr>
 </tbody></table></div>
 <p>お客さまに選んでもらう方法もあります。</p>
-<ul><li>「全部揃ってから、まとめて安く受け取る」</li><li>「送料が増えても、用意できた商品から早く受け取る」</li></ul>
+<ul><li>「全部揃ってから、まとめて安く受け取る」<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>「送料が増えても、用意できた商品から早く受け取る」<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li></ul>
 <h3 id="12-4-お客さまに何を見せるか決める">12-4. お客さまに何を見せるか決める<a class="anchor" href="#12-4-お客さまに何を見せるか決める" aria-label="この見出しへのリンク">#</a></h3>
 <div class="table-wrap"><table><thead><tr>
 <th>やさしい質問</th>
@@ -1216,27 +1616,27 @@
 <th>おすすめ</th>
 </tr></thead><tbody>
 <tr>
-<td>商品ページで送料を見せる？</td>
+<td>商品ページで送料を見せる？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>「沖縄県への送料は1,200円です」</td>
 <td>住所が未入力なら「送料800円〜」でもよい</td>
 </tr>
 <tr>
-<td>カートで送料を見せる？</td>
+<td>カートで送料を見せる？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>「商品代5,000円＋送料800円＝合計5,800円」</td>
 <td>決済直前ではなく、カートで見せる</td>
 </tr>
 <tr>
-<td>送料無料までの残り金額を見せる？</td>
+<td>送料無料までの残り金額を見せる？<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td>「あと2,000円で送料無料」</td>
 <td>まとめ買いにつながるので、表示できるならおすすめ</td>
 </tr>
 <tr>
-<td>荷物が2つに分かれることを説明する？</td>
+<td>荷物が2つに分かれることを説明する？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>「冷凍商品を含むため、2便で届きます」</td>
 <td>送料が2件分になる理由も一緒に表示する</td>
 </tr>
 <tr>
-<td>安い便と早い便を選べるようにする？</td>
+<td>安い便と早い便を選べるようにする？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>通常便800円／お急ぎ便1,200円</td>
 <td>商品や出荷現場が対応できる場合だけ用意する</td>
 </tr>
@@ -1257,27 +1657,27 @@
 <th>分かりやすい例</th>
 </tr></thead><tbody>
 <tr>
-<td>送料を計算できない</td>
+<td>送料を計算できない<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>購入を止める／仮送料で受ける／後から連絡する</td>
 <td>「この商品は個別見積りです。お問い合わせください」</td>
 </tr>
 <tr>
-<td>商品の重さが未登録</td>
+<td>商品の重さが未登録<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>0gで計算／購入を止める／仮の重さを使う</td>
 <td>未登録を0gにすると送料不足になりやすいので注意</td>
 </tr>
 <tr>
-<td>設定した最大重量を超えた</td>
+<td>設定した最大重量を超えた<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>購入を止める／大型便へ切り替える</td>
 <td>「30kgを超えるため、別途送料をご案内します」</td>
 </tr>
 <tr>
-<td>配送会社との連携が止まった</td>
+<td>配送会社との連携が止まった<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td>購入を止める／予備の送料表を使う</td>
 <td>APIが動かない時は、全国一律1,000円で仮計算する</td>
 </tr>
 <tr>
-<td>実際の送料と計算結果が違った</td>
+<td>実際の送料と計算結果が違った<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>ショップ負担／追加請求／返金</td>
 <td>差額300円以内ならショップ負担、と決めておく</td>
 </tr>
@@ -1288,19 +1688,19 @@
 <th>回答例</th>
 </tr></thead><tbody>
 <tr>
-<td>配送会社が値上げした時、誰が送料を直す？</td>
+<td>配送会社が値上げした時、誰が送料を直す？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>店長が新料金を登録し、経理担当が確認する</td>
 </tr>
 <tr>
-<td>いつ新料金へ切り替える？</td>
+<td>いつ新料金へ切り替える？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>2026年10月1日発送分から変更する</td>
 </tr>
 <tr>
-<td>スタッフが注文ごとの送料を変更してよい？</td>
+<td>スタッフが注文ごとの送料を変更してよい？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>300円までなら変更可。それ以上は店長確認</td>
 </tr>
 <tr>
-<td>設定変更前にテストする？</td>
+<td>設定変更前にテストする？<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>東京・北海道・沖縄、1個・5個・大量注文で試す</td>
 </tr>
 </tbody></table></div>
@@ -1315,39 +1715,39 @@
 <th>見たいこと</th>
 </tr></thead><tbody>
 <tr>
-<td>カート→購入完了率</td>
+<td>カート→購入完了率<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>送料表示で購入をやめていないか</td>
 </tr>
 <tr>
-<td>送料無料利用率</td>
+<td>送料無料利用率<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td>無料条件が低すぎ・高すぎないか</td>
 </tr>
 <tr>
-<td>平均注文額</td>
+<td>平均注文額<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td>送料無料条件がまとめ買いにつながったか</td>
 </tr>
 <tr>
-<td>送料回収率</td>
+<td>送料回収率<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>請求送料 ÷ 実際の配送原価</td>
 </tr>
 <tr>
-<td>1注文あたり送料差額</td>
+<td>1注文あたり送料差額<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>送料施策にいくら負担しているか</td>
 </tr>
 <tr>
-<td>分割配送率</td>
+<td>分割配送率<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>倉庫・温度帯・欠品で荷物が増えていないか</td>
 </tr>
 <tr>
-<td>見積り誤差</td>
+<td>見積り誤差<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>購入時の想定原価と出荷時実費の差</td>
 </tr>
 <tr>
-<td>問い合わせ率</td>
+<td>問い合わせ率<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>送料・到着日・分割への疑問が減ったか</td>
 </tr>
 <tr>
-<td>破損・再送率</td>
+<td>破損・再送率<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>安さを優先しすぎて品質が落ちていないか</td>
 </tr>
 </tbody></table></div>
@@ -1371,19 +1771,19 @@
 </tr></thead><tbody>
 <tr>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
-<td>BASEまたは公式Appに直接その機能がある</td>
+<td>BASEまたは公式Appに直接その機能がある<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 </tr>
 <tr>
 <td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
-<td>代替設定・手動運用・別Appで一部実現できる</td>
+<td>代替設定・手動運用・別Appで一部実現できる<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 </tr>
 <tr>
 <td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
-<td>標準機能・公式Appでは自動実現できない</td>
+<td>標準機能・公式Appでは自動実現できない<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 </tr>
 <tr>
 <td><span class="status-badge status-check">要確認</span></td>
-<td>公式公開資料に明確な上限・仕様を確認できない</td>
+<td>公式公開資料に明確な上限・仕様を確認できない<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 </tr>
 </tbody></table></div>
 <h3 id="base欄の修正版">BASE欄の修正版<a class="anchor" href="#base欄の修正版" aria-label="この見出しへのリンク">#</a></h3>
@@ -1394,134 +1794,134 @@
 <th>制約・正しい読み方</th>
 </tr></thead><tbody>
 <tr>
-<td>全国一律送料</td>
+<td>全国一律送料<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td>ショップ送料、または送料詳細設定 App</td>
 <td>商品数に関係ない一律設定も可能</td>
 </tr>
 <tr>
-<td>都道府県別送料</td>
+<td>都道府県別送料<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td>送料詳細設定 Appの地域別送料</td>
 <td>エリア別・都道府県別に設定可能</td>
 </tr>
 <tr>
-<td>郵便番号別送料</td>
+<td>郵便番号別送料<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
 <td>―</td>
 <td>郵便番号単位の料金分岐は確認できない</td>
 </tr>
 <tr>
-<td>離島追加料金</td>
+<td>離島追加料金<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-warning">Notion：要確認</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
 <td>都道府県別送料で近似</td>
 <td>同じ都道府県内の本土と離島を自動で分けられない</td>
 </tr>
 <tr>
-<td>重量別送料</td>
+<td>重量別送料<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td>商品重量の合計で梱包サイズと送料を切替</td>
 <td><strong>旧比較表の×を訂正</strong>。国内配送のみ</td>
 </tr>
 <tr>
-<td>サイズ別送料（3辺合計）</td>
+<td>サイズ別送料（3辺合計）<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
 <td>60・80・100などのサイズ名と送料を登録</td>
 <td>3辺を自動計測・合算する機能ではなく、個数・重量でサイズを切り替える方式</td>
 </tr>
 <tr>
-<td>区分・サイズ数の上限</td>
+<td>区分・サイズ数の上限<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-check">要確認</span></td>
 <td>複数サイズを登録可能</td>
 <td>確認した公式資料には明確な数値上限の記載なし</td>
 </tr>
 <tr>
-<td>段階式の個数別送料</td>
+<td>段階式の個数別送料<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td>商品の合計個数で梱包サイズを切替</td>
 <td><strong>旧比較表の×を訂正</strong></td>
 </tr>
 <tr>
-<td>個数×固定送料</td>
+<td>個数×固定送料<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-warning">Notion：要確認</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td>「商品数ごとに送料を計算する」</td>
 <td>3個購入なら送料3個分、などの計算が可能</td>
 </tr>
 <tr>
-<td>何個買っても固定送料</td>
+<td>何個買っても固定送料<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td>「まとめて1点として送料を計算する」</td>
 <td>同じ配送方法の商品は1件分として計算</td>
 </tr>
 <tr>
-<td>クール便手数料</td>
+<td>クール便手数料<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
 <td>常温・冷蔵・冷凍ごとに配送方法と送料を作成</td>
 <td>「クール加算」専用項目ではなく、別配送方法として表現</td>
 </tr>
 <tr>
-<td>温度帯別の同梱判定</td>
+<td>温度帯別の同梱判定<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
 <td>温度帯ごとに配送方法を分け、対象商品を割当</td>
 <td>商品属性からの完全自動判定ではなく、事前設定が必要</td>
 </tr>
 <tr>
-<td>ギフト配送フラグ</td>
+<td>ギフト配送フラグ<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
 <td>購入者と届け先を別住所にすることは可能</td>
 <td>ギフトかどうかで送料を自動分岐する専用機能は確認できない</td>
 </tr>
 <tr>
-<td>1注文→複数住所へ分割</td>
+<td>1注文→複数住所へ分割<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
 <td>注文を分ける運用</td>
 <td>1注文内で複数のお届け先に自動分割する機能は確認できない</td>
 </tr>
 <tr>
-<td>複数個口の自動出荷</td>
+<td>複数個口の自動出荷<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
 <td>送料請求は複数配送方法で表現可能</td>
 <td>「かんたん発送」は1注文につき1配送分のみ。2個口目以降は別手段で出荷</td>
 </tr>
 <tr>
-<td>配送方法・配送業者の選択</td>
+<td>配送方法・配送業者の選択<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td>商品へ複数の配送方法を設定</td>
 <td>最安方法が最初に選ばれ、購入者は別方法も選択可能。最安だけの表示にもできる</td>
 </tr>
 <tr>
-<td>配送日・時間帯指定</td>
+<td>配送日・時間帯指定<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-partial" title="一部対応・代替" aria-label="一部対応・代替">△</span></td>
 <td>配送日設定 App</td>
 <td>指定自体は可能だが、1ショップ1パターン。送料詳細設定 Appの配送方法とは連動しない</td>
 </tr>
 <tr>
-<td>置き配指定</td>
+<td>置き配指定<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
 <td>―</td>
 <td>購入画面の標準的な置き配選択機能は確認できない</td>
 </tr>
 <tr>
-<td>○円以上で送料無料</td>
+<td>○円以上で送料無料<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td>送料詳細設定 Appの送料無料条件</td>
 <td>割引後の注文合計で判定。海外配送には適用されない</td>
 </tr>
 <tr>
-<td>「あと○円で送料無料」表示</td>
+<td>「あと○円で送料無料」表示<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-no" title="非対応" aria-label="非対応">×</span></td>
 <td>―</td>
 <td>送料無料条件は作れるが、残額を自動表示する機能ではない</td>
 </tr>
 <tr>
-<td>海外の国・地域別送料</td>
+<td>海外の国・地域別送料<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 <td>海外配送方法で国・地域別に設定</td>
 <td>国ごとの配送不可設定も可能</td>
 </tr>
 </tbody></table></div>
 <h3 id="重量別送料の仕組み">重量別送料の仕組み<a class="anchor" href="#重量別送料の仕組み" aria-label="この見出しへのリンク">#</a></h3>
-<ol><li>商品ごとの設定画面で重量をグラム単位で登録する</li><li>送料詳細設定 Appで「サイズ別送料（重量別）」を選ぶ</li><li>60・80・100サイズなど、使う梱包サイズと送料を登録する</li><li>「商品の重量別で管理する」を選ぶ</li><li>合計重量ごとの範囲を設定する</li><li>その配送方法を使う対象商品を選ぶ</li></ol>
+<ol><li>商品ごとの設定画面で重量をグラム単位で登録する<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></li><li>送料詳細設定 Appで「サイズ別送料（重量別）」を選ぶ<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></li><li>60・80・100サイズなど、使う梱包サイズと送料を登録する<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>「商品の重量別で管理する」を選ぶ<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></li><li>合計重量ごとの範囲を設定する<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></li><li>その配送方法を使う対象商品を選ぶ<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li></ol>
 <p>設定例：</p>
 <div class="table-wrap"><table><thead><tr>
 <th>購入商品の合計重量</th>
@@ -1529,23 +1929,23 @@
 <th>請求する送料</th>
 </tr></thead><tbody>
 <tr>
-<td>2,000g以下</td>
+<td>2,000g以下<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>宅急便60サイズ</td>
 <td>60サイズの全国一律または地域別送料</td>
 </tr>
 <tr>
-<td>2,001〜5,000g</td>
+<td>2,001〜5,000g<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>宅急便80サイズ</td>
 <td>80サイズの全国一律または地域別送料</td>
 </tr>
 <tr>
-<td>5,001g以上</td>
+<td>5,001g以上<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>宅急便100サイズ</td>
 <td>100サイズの全国一律または地域別送料</td>
 </tr>
 </tbody></table></div>
 <h4 id="重量設定の注意点">重量設定の注意点<a class="anchor" href="#重量設定の注意点" aria-label="この見出しへのリンク">#</a></h4>
-<ul><li>商品重量はショップ側が事前に登録する。配送会社の計量結果を自動取得する機能ではない</li><li>重量未設定の商品は0gとして計算される</li><li>重量別設定は国内配送方法のみ</li><li>すべての重量範囲をカバーしないと、条件外の注文で配送方法を選べない場合がある</li><li>梱包箱、緩衝材、保冷剤の重量も考え、商品重量へ上乗せするか境界に余裕を持たせる必要がある</li></ul>
+<ul><li>商品重量はショップ側が事前に登録する。配送会社の計量結果を自動取得する機能ではない<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></li><li>重量未設定の商品は0gとして計算される<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></li><li>重量別設定は国内配送方法のみ<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></li><li>すべての重量範囲をカバーしないと、条件外の注文で配送方法を選べない場合がある<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></li><li>梱包箱、緩衝材、保冷剤の重量も考え、商品重量へ上乗せするか境界に余裕を持たせる必要がある<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li></ul>
 <h3 id="サイズ別の言葉に注意">「サイズ別」の言葉に注意<a class="anchor" href="#サイズ別の言葉に注意" aria-label="この見出しへのリンク">#</a></h3>
 <p>BASEの「サイズ別送料」は、梱包サイズの名前と料金を登録し、<strong>商品の合計個数または合計重量</strong>を条件にサイズを切り替える機能です。</p>
 <p>商品の縦・横・高さを登録して3辺合計を自動計算したり、商品をどの箱へ入れるかを自動で最適化したりする機能ではありません。そのため、比較表の項目が「サイズ別送料（3辺合計）」なら、BASEは<strong>◎ではなく△</strong>が適切です。</p>
@@ -1557,17 +1957,17 @@
 <th>評価</th>
 </tr></thead><tbody>
 <tr>
-<td>合計個数でサイズを切り替える</td>
+<td>合計個数でサイズを切り替える<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></td>
 <td>1〜2個は60サイズ、3〜5個は80サイズ</td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 </tr>
 <tr>
-<td>個数分だけ送料を加算する</td>
+<td>個数分だけ送料を加算する<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></td>
 <td>送料500円の商品を3個で1,500円</td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 </tr>
 <tr>
-<td>何個でも1件分に固定する</td>
+<td>何個でも1件分に固定する<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></td>
 <td>3個購入しても送料500円</td>
 <td><span class="status-badge status-yes" title="対応" aria-label="対応">◎</span></td>
 </tr>
@@ -1576,7 +1976,7 @@
 <h3 id="温度帯の扱い">温度帯の扱い<a class="anchor" href="#温度帯の扱い" aria-label="この見出しへのリンク">#</a></h3>
 <p>常温・冷蔵・冷凍ごとに配送方法を作り、対象商品をそれぞれ割り当てれば、1注文で温度帯ごとの送料を請求できます。ただし「商品に温度帯属性を持たせて、システムが自動で同梱可否を最適判断する」仕組みではありません。</p>
 <p>したがって、比較表では次の評価が適切です。</p>
-<ul><li>クール便手数料：△（別配送方法として料金へ含められる）</li><li>温度帯別の同梱判定：△（商品と配送方法の事前割当で実現）</li></ul>
+<ul><li>クール便手数料：△（別配送方法として料金へ含められる）<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></li><li>温度帯別の同梱判定：△（商品と配送方法の事前割当で実現）<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></li></ul>
 <p>出典：<a href="https://help.thebase.in/hc/ja/articles/25863378511257" target="_blank" rel="noopener noreferrer">BASE公式「温度帯ごとに送料を設定する方法」<span class="external" aria-hidden="true">↗</span></a></p>
 <h3 id="複数の配送方法">複数の配送方法<a class="anchor" href="#複数の配送方法" aria-label="この見出しへのリンク">#</a></h3>
 <p>1商品に複数の配送方法を設定できます。共通する配送方法が複数ある注文では、最安の送料が最初に選択されますが、購入者が別の配送方法を選ぶこともできます。「最安値の配送方法のみ表示」に変更することも可能です。</p>
@@ -1591,14 +1991,14 @@
 <p>また「かんたん発送」は、1注文につき1配送分のみ利用できます。複数個口や分割発送の2便目以降は、別の手段で発送する必要があります。</p>
 <ul><li><a href="https://help.thebase.in/hc/ja/articles/6926377397657" target="_blank" rel="noopener noreferrer">BASE公式「かんたん発送の送料とショップ設定送料が異なっても大丈夫ですか」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://help.thebase.in/hc/ja/articles/6926304645657" target="_blank" rel="noopener noreferrer">BASE公式「複数個口でかんたん発送を利用できますか」<span class="external" aria-hidden="true">↗</span></a></li></ul>
 <h3 id="送料無料の注意点">送料無料の注意点<a class="anchor" href="#送料無料の注意点" aria-label="この見出しへのリンク">#</a></h3>
-<ul><li>合計○円以上で送料無料にできる</li><li>特定商品のみ、送料0円の配送方法を割り当てることもできる</li><li>判定金額はクーポンなどを差し引いた後の注文合計</li><li>海外発送には送料無料条件が適用されない</li><li>送料無料になる注文でも、カートでは「送料別」と表示される場合があり、この表記は変更できない</li><li>最終的な送料は入力内容の確認画面で表示される</li></ul>
+<ul><li>合計○円以上で送料無料にできる<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></li><li>特定商品のみ、送料0円の配送方法を割り当てることもできる<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>判定金額はクーポンなどを差し引いた後の注文合計<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>海外発送には送料無料条件が適用されない<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>送料無料になる注文でも、カートでは「送料別」と表示される場合があり、この表記は変更できない<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></li><li>最終的な送料は入力内容の確認画面で表示される<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li></ul>
 <p>このため「送料無料条件」は◎ですが、「あと○円で送料無料」という進捗表示は×として分けるのが正確です。</p>
 <p>出典：<a href="https://help.thebase.in/hc/ja/articles/900000532563" target="_blank" rel="noopener noreferrer">BASE公式「送料無料は設定できますか」<span class="external" aria-hidden="true">↗</span></a></p>
 <h3 id="baseに向いている送料設計">BASEに向いている送料設計<a class="anchor" href="#baseに向いている送料設計" aria-label="この見出しへのリンク">#</a></h3>
 <p>BASEは、次のような送料設計なら比較的実現しやすいです。</p>
-<ul><li>全国一律または都道府県別</li><li>商品別の配送方法</li><li>個数または重量による60・80・100サイズの切替</li><li>常温・冷蔵・冷凍を別配送方法として請求</li><li>一定金額以上の送料無料</li><li>安い便と通常便など、複数配送方法からの選択</li></ul>
+<ul><li>全国一律または都道府県別<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></li><li>商品別の配送方法<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>個数または重量による60・80・100サイズの切替<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span><span class="comparison-badge comparison-future">Notion：v2以降</span></span><!--notion-mark-end--></li><li>常温・冷蔵・冷凍を別配送方法として請求<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>一定金額以上の送料無料<span class="notion-implementation-mark"><span class="comparison-badge comparison-recognized">Notion：MVP・現行</span></span><!--notion-mark-end--></li><li>安い便と通常便など、複数配送方法からの選択<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li></ul>
 <p>一方、次の要件は追加システムや運用対応が必要です。</p>
-<ul><li>郵便番号単位の離島・中継料金</li><li>商品の3辺寸法からの自動箱詰め</li><li>複数倉庫の在庫引当と送料最適化</li><li>1注文を複数住所へ分ける</li><li>配送会社の実費とのリアルタイム連動</li><li>配送方法ごとに異なる日時指定</li></ul>
+<ul><li>郵便番号単位の離島・中継料金<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-warning">Notion：要確認</span></span><!--notion-mark-end--></li><li>商品の3辺寸法からの自動箱詰め<span class="notion-implementation-mark"><span class="comparison-badge comparison-future">Notion：v2以降</span><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>複数倉庫の在庫引当と送料最適化<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>1注文を複数住所へ分ける<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></li><li>配送会社の実費とのリアルタイム連動<span class="notion-implementation-mark"><span class="comparison-badge comparison-missing">Notion：記載なし</span></span><!--notion-mark-end--></li><li>配送方法ごとに異なる日時指定<span class="notion-implementation-mark"><span class="comparison-badge comparison-discussed">Notion：要望・検討</span></span><!--notion-mark-end--></li></ul>
 <hr>
 <h2 id="参考資料">参考資料<a class="anchor" href="#参考資料" aria-label="この見出しへのリンク">#</a></h2>
 <ul><li><a href="https://www.no-trouble.caa.go.jp/what/mailorder/" target="_blank" rel="noopener noreferrer">消費者庁 特定商取引法ガイド「通信販売」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://www.kuronekoyamato.co.jp/ytc/customer/send/services/takkyubin/" target="_blank" rel="noopener noreferrer">ヤマト運輸「宅急便」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://www.kuronekoyamato.co.jp/ytc/customer/send/services/cool/" target="_blank" rel="noopener noreferrer">ヤマト運輸「クール宅急便」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://www.post.japanpost.jp/service/you_pack/index.html" target="_blank" rel="noopener noreferrer">日本郵便「ゆうパック」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://www.sagawa-exp.co.jp/customer/send/service/" target="_blank" rel="noopener noreferrer">佐川急便「配送サービス」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://baymard.com/lists/cart-abandonment-rate" target="_blank" rel="noopener noreferrer">Baymard Institute — Cart Abandonment Statistics<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://help.thebase.in/hc/ja/articles/25734822928281" target="_blank" rel="noopener noreferrer">BASE公式「送料詳細設定 Appで購入者に請求する送料を設定する」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://help.thebase.in/hc/ja/articles/25863173380889" target="_blank" rel="noopener noreferrer">BASE公式「購入された重量に応じた送料を設定する」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://help.thebase.in/hc/ja/articles/25863317151129" target="_blank" rel="noopener noreferrer">BASE公式「購入された個数に応じた送料を設定する」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://help.thebase.in/hc/ja/articles/25863378511257" target="_blank" rel="noopener noreferrer">BASE公式「温度帯ごとに送料を設定する」<span class="external" aria-hidden="true">↗</span></a></li><li><a href="https://help.thebase.in/hc/ja/articles/900000532563" target="_blank" rel="noopener noreferrer">BASE公式「送料無料は設定できますか」<span class="external" aria-hidden="true">↗</span></a></li></ul>
